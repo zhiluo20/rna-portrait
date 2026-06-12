@@ -1,0 +1,12 @@
+Custom code used for model training, pretrained-model inference, manuscript
+analyses and figure generation is available at [GitHub URL] and archived at
+[CODE ARCHIVE DOI]. The repository includes an importable Python package for
+RNA-language portrait inference, compact pretrained inference weights,
+training workflows, manuscript-analysis workflows, figure-generation workflows,
+software environment files and public-data/reproduction manifests. Source code
+is released under the MIT License. Pretrained model weights are provided for
+academic research and peer-review use under the terms described in
+MODEL_LICENSE. Processed data, validation profiles, full manuscript runtime
+artifacts, figure source data and third-party environment details required for
+complete reproduction are described in DATA_AVAILABILITY_STATEMENT.txt and
+data_availability/reproduction_asset_manifest.csv.

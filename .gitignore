@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+._*
+.DS_Store
+.ipynb_checkpoints/
+outputs/
+artifacts/
+figure_outputs/
+envs/
+
+.claude/

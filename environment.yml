@@ -1,0 +1,17 @@
+name: rna-portrait
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.10
+  - numpy
+  - pandas
+  - pyarrow
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - pytorch
+  - pip
+  - pip:
+      - sentence-transformers
+      - tqdm

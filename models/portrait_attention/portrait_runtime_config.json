@@ -1,0 +1,7 @@
+{
+  "name": "rna_portrait_release_model",
+  "alignment_model": "../rna_language_alignment/rna_language_alignment.pt",
+  "portrait_model": "portrait_attention.pt",
+  "prototype_table": "portrait_prototypes.csv",
+  "fusion_alpha": 0.4
+}

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RNA Portrait — Demo</title>
+<style>
+  :root {
+    --bg: #0f1115; --panel: #171a21; --panel-2: #1e222b; --border: #2a2f3a;
+    --text: #e6e9ef; --muted: #9aa3b2; --accent: #6ea8fe; --accent-2: #7ee0c0;
+    --warn: #ffcc66; --danger: #ff6b6b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  header { padding: 24px 28px 16px; border-bottom: 1px solid var(--border); }
+  header h1 { margin: 0 0 4px; font-size: 20px; }
+  header p { margin: 0; color: var(--muted); font-size: 13px; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 18px 28px 60px; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 18px; }
+  .tab { background: var(--panel); border: 1px solid var(--border); color: var(--muted);
+    padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; }
+  .tab.active { background: var(--accent); color: #06101f; border-color: var(--accent); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+  .panel h2 { margin: 0 0 12px; font-size: 14px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  textarea { width: 100%; resize: vertical; background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 12px;
+    font: 13px/1.45 "SF Mono", ui-monospace, Menlo, Consolas, monospace; }
+  .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+  button, .filebtn { background: var(--accent); color: #06101f; border: none; border-radius: 8px;
+    padding: 9px 16px; font-weight: 600; font-size: 14px; cursor: pointer; }
+  button.secondary, .filebtn { background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--border); font-weight: 500; }
+  button:disabled { opacity: .5; cursor: default; }
+  .filebtn { display: inline-block; }
+  .filebtn input { display: none; }
+  label.inline { color: var(--muted); font-size: 13px; }
+  input[type=number] { width: 60px; background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; }
+  .placeholder { color: var(--muted); font-style: italic; }
+  .portrait { font-size: 16px; line-height: 1.6; background: var(--panel-2);
+    border-left: 3px solid var(--accent-2); border-radius: 6px; padding: 14px 16px; }
+  .gauges { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+  .gauge { background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; text-align: center; }
+  .gauge .glabel { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
+  .card { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+  .card .k { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+  .card .v { font-size: 18px; font-weight: 600; margin-top: 2px; }
+  .chart { margin-top: 16px; }
+  .barrow { display: grid; grid-template-columns: 150px 1fr 56px; align-items: center; gap: 10px; margin: 7px 0; }
+  .barlabel { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .barlabel small { color: var(--muted); display: block; font-size: 10px; }
+  .bartrack { background: var(--panel-2); border-radius: 5px; height: 22px; overflow: hidden; }
+  .barfill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 5px; transition: width .4s ease; }
+  .barval { font-size: 12px; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+  .note { margin-top: 14px; font-size: 12.5px; color: var(--muted); }
+  .warn { color: var(--warn); }
+  .err { color: var(--danger); }
+  a { color: var(--accent); }
+  .spin { display: inline-block; width: 14px; height: 14px; border: 2px solid var(--border);
+    border-top-color: var(--accent); border-radius: 50%; animation: s .7s linear infinite; vertical-align: -2px; }
+  @keyframes s { to { transform: rotate(360deg); } }
+  .filelist { margin-top: 10px; font-size: 12px; color: var(--muted); }
+  .filelist span { display: inline-block; background: var(--panel-2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 2px 10px; margin: 2px 4px 2px 0; }
+  table.cmp { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px; }
+  table.cmp th, table.cmp td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  table.cmp th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+  table.cmp tr:hover td { background: var(--panel-2); }
+  .minibar { background: var(--panel-2); border-radius: 4px; height: 14px; width: 90px; display: inline-block; overflow: hidden; vertical-align: middle; }
+  .minibar > div { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+  .pill { font-variant-numeric: tabular-nums; }
+  .hidden { display: none; }
+  .exportbtn { margin-top: 14px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>RNA Portrait — interactive demo</h1>
+  <p>“Gene expression profiles can be described in natural language like images.” Describe one profile, or compare many at once.</p>
+</header>
+<div class="wrap">
+  <div class="tabs">
+    <div class="tab active" data-mode="single" id="tab-single">Single profile</div>
+    <div class="tab" data-mode="batch" id="tab-batch">Batch compare</div>
+  </div>
+
+  <!-- SINGLE MODE -->
+  <div id="mode-single">
+    <div class="grid">
+      <section class="panel">
+        <h2>Input profile</h2>
+        <textarea id="input" style="height:240px" placeholder="gene&#9;expression&#10;TP53&#9;5.21&#10;EGFR&#9;3.84&#10;..."></textarea>
+        <div class="row">
+          <button id="run">Describe profile</button>
+          <label class="filebtn">Upload file<input id="file" type="file" accept=".tsv,.csv,.txt" /></label>
+          <button class="secondary" id="example">Load example</button>
+        </div>
+        <div class="row">
+          <label class="inline">Top prototypes (K):</label>
+          <input id="topk" type="number" min="1" max="15" value="5" />
+        </div>
+      </section>
+      <section class="panel">
+        <h2>Portrait</h2>
+        <div id="output"><p class="placeholder">Results appear here. Try “Load example”, then “Describe profile”.</p></div>
+      </section>
+    </div>
+  </div>
+
+  <!-- BATCH MODE -->
+  <div id="mode-batch" class="hidden">
+    <div class="grid">
+      <section class="panel">
+        <h2>Samples</h2>
+        <label class="filebtn">Upload profiles (multi-select)<input id="bfiles" type="file" accept=".tsv,.csv,.txt" multiple /></label>
+        <div class="filelist" id="bfilelist">No files added yet — each file is one sample.</div>
+        <h2 style="margin-top:18px">…or paste an expression matrix</h2>
+        <textarea id="bmatrix" style="height:170px" placeholder="gene&#9;sampleA&#9;sampleB&#9;sampleC&#10;TP53&#9;5.2&#9;1.1&#9;3.0&#10;EGFR&#9;3.8&#9;0.4&#9;2.2&#10;..."></textarea>
+        <div class="row">
+          <button id="brun">Compare samples</button>
+          <button class="secondary" id="bexample">Load example matrix</button>
+          <button class="secondary" id="bclear">Clear</button>
+        </div>
+        <div class="row">
+          <label class="inline">Top prototypes (K):</label>
+          <input id="btopk" type="number" min="1" max="15" value="5" />
+        </div>
+      </section>
+      <section class="panel">
+        <h2>Comparison</h2>
+        <div id="boutput"><p class="placeholder">Upload several profiles or paste a matrix, then “Compare samples”.</p></div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+function esc(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* ---------- tab switching ---------- */
+function setMode(mode){
+  $("tab-single").classList.toggle("active", mode==="single");
+  $("tab-batch").classList.toggle("active", mode==="batch");
+  $("mode-single").classList.toggle("hidden", mode!=="single");
+  $("mode-batch").classList.toggle("hidden", mode!=="batch");
+}
+$("tab-single").onclick = ()=>setMode("single");
+$("tab-batch").onclick = ()=>setMode("batch");
+
+/* ---------- gauges (self-contained SVG) ---------- */
+function probGauge(p){ // p in 0..1, semicircle
+  const cx=70, cy=70, r=54, sw=14;
+  const a0=Math.PI, a1=Math.PI*(1-p);
+  const x0=cx+r*Math.cos(a0), y0=cy+r*Math.sin(a0);
+  const x1=cx+r*Math.cos(a1), y1=cy+r*Math.sin(a1);
+  const xe=cx+r, ye=cy;
+  const big = p>0.5?1:0;
+  const col = p>=0.5 ? "var(--danger)" : "var(--accent-2)";
+  return `<svg viewBox="0 0 140 86" width="100%" height="86">
+    <path d="M ${x0} ${y0} A ${r} ${r} 0 0 1 ${xe} ${ye}" fill="none" stroke="var(--panel)" stroke-width="${sw}" stroke-linecap="round"/>
+    <path d="M ${x0} ${y0} A ${r} ${r} 0 ${big} 1 ${x1} ${y1}" fill="none" stroke="${col}" stroke-width="${sw}" stroke-linecap="round"/>
+    <text x="70" y="64" text-anchor="middle" font-size="22" font-weight="700" fill="var(--text)">${(p*100).toFixed(0)}%</text>
+  </svg>`;
+}
+function ageGauge(years){ // 0..90 scale with marker
+  const lo=0, hi=90, v=Math.max(lo,Math.min(hi,years));
+  const f=((v-lo)/(hi-lo))*100;
+  return `<div style="margin-top:18px">
+    <div style="font-size:22px;font-weight:700">${years.toFixed(1)}<span style="font-size:12px;color:var(--muted)"> yr</span></div>
+    <div style="position:relative;height:10px;background:var(--panel);border-radius:5px;margin-top:10px">
+      <div style="position:absolute;left:0;top:0;height:100%;width:${f}%;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:5px"></div>
+      <div style="position:absolute;left:calc(${f}% - 5px);top:-3px;width:10px;height:16px;background:var(--text);border-radius:3px"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:4px"><span>0</span><span>45</span><span>90</span></div>
+  </div>`;
+}
+
+/* ---------- CSV export ---------- */
+function downloadCSV(filename, rows){
+  const body = rows.map(r=>r.map(cell=>{
+    const s=String(cell==null?"":cell);
+    return /[",\n]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s;
+  }).join(",")).join("\n");
+  const blob = new Blob([body], {type:"text/csv;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href=url; a.download=filename; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url), 1000);
+}
+
+/* ---------- SVG → PNG export (offline, via canvas) ---------- */
+function svgToPng(svgString, filename, w, h, scale){
+  scale = scale || 2;
+  const svg = '<?xml version="1.0" encoding="UTF-8"?>' + svgString;
+  const blob = new Blob([svg], {type:"image/svg+xml;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const img = new Image();
+  img.onload = ()=>{
+    const canvas = document.createElement("canvas");
+    canvas.width = w*scale; canvas.height = h*scale;
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#0f1115"; ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(img,0,0,canvas.width,canvas.height);
+    URL.revokeObjectURL(url);
+    canvas.toBlob(b=>{
+      const u=URL.createObjectURL(b); const a=document.createElement("a");
+      a.href=u; a.download=filename; a.click(); setTimeout(()=>URL.revokeObjectURL(u),1000);
+    });
+  };
+  img.onerror = ()=>{ URL.revokeObjectURL(url); alert("PNG export failed in this browser."); };
+  img.src = url;
+}
+// resolve CSS vars to literal colors so the exported SVG is self-contained
+const CSS = getComputedStyle(document.documentElement);
+function cv(name){ return CSS.getPropertyValue(name).trim() || "#fff"; }
+
+/* ---------- per-sample disease-family weight vectors ---------- */
+function buildVectors(results){
+  const famSet = new Set();
+  for(const it of results) for(const c of (it.result.portrait_components||[])) famSet.add(c.disease_family||"unknown");
+  const families = [...famSet].sort();
+  const rows = results.map(it=>{
+    const v = Object.fromEntries(families.map(f=>[f,0]));
+    for(const c of (it.result.portrait_components||[])) v[c.disease_family||"unknown"] += (c.weight||0);
+    return { name: it.name, vec: families.map(f=>v[f]) };
+  });
+  return { families, rows };
+}
+
+/* ---------- heatmap SVG (samples × disease families) ---------- */
+function heatmapSVG(families, rows){
+  const cell=34, padL=120, padT=110, padR=20, padB=20;
+  const w = padL + families.length*cell + padR;
+  const h = padT + rows.length*cell + padB;
+  const maxV = Math.max(1e-9, ...rows.flatMap(r=>r.vec));
+  let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" font-family="-apple-system,Segoe UI,Roboto,sans-serif">`;
+  s += `<rect width="${w}" height="${h}" fill="${cv('--bg')}"/>`;
+  families.forEach((f,j)=>{
+    const x=padL+j*cell+cell/2;
+    s += `<text x="${x}" y="${padT-8}" fill="${cv('--muted')}" font-size="10" text-anchor="start" transform="rotate(-45 ${x} ${padT-8})">${esc(f)}</text>`;
+  });
+  rows.forEach((r,i)=>{
+    const y=padT+i*cell;
+    s += `<text x="${padL-8}" y="${y+cell/2+4}" fill="${cv('--text')}" font-size="11" text-anchor="end">${esc(r.name)}</text>`;
+    r.vec.forEach((v,j)=>{
+      const x=padL+j*cell, t=v/maxV;
+      const col = mix([30,34,43],[126,224,192], t); // panel-2 -> accent-2
+      s += `<rect x="${x}" y="${y}" width="${cell-2}" height="${cell-2}" rx="3" fill="rgb(${col})"/>`;
+      if(t>0.12) s += `<text x="${x+(cell-2)/2}" y="${y+cell/2+3}" fill="#06101f" font-size="9" text-anchor="middle">${v.toFixed(2)}</text>`;
+    });
+  });
+  s += `</svg>`;
+  return { svg:s, w, h };
+}
+function mix(a,b,t){ return a.map((av,i)=>Math.round(av+(b[i]-av)*t)).join(","); }
+
+/* ---------- hierarchical clustering + dendrogram ---------- */
+function dist(a,b){ let s=0; for(let i=0;i<a.length;i++){ const d=a[i]-b[i]; s+=d*d; } return Math.sqrt(s); }
+function cluster(rows){
+  // agglomerative, average linkage
+  let nodes = rows.map((r,i)=>({id:i, name:r.name, vec:r.vec, members:[i], height:0, left:null, right:null}));
+  let active = nodes.slice();
+  while(active.length>1){
+    let best=Infinity, bi=0, bj=1;
+    for(let i=0;i<active.length;i++) for(let j=i+1;j<active.length;j++){
+      // average linkage = distance of centroids of members (using mean vec)
+      const d=dist(active[i].vec, active[j].vec);
+      if(d<best){ best=d; bi=i; bj=j; }
+    }
+    const A=active[bi], B=active[bj];
+    const n=A.members.length+B.members.length;
+    const vec=A.vec.map((av,k)=>(av*A.members.length+B.vec[k]*B.members.length)/n);
+    const merged={id:-1, name:null, vec, members:A.members.concat(B.members), height:best, left:A, right:B};
+    active = active.filter((_,k)=>k!==bi&&k!==bj); active.push(merged);
+  }
+  return active[0];
+}
+function dendrogramSVG(root, rows){
+  const leaves=[]; (function collect(n){ if(!n.left){ leaves.push(n); } else { collect(n.left); collect(n.right); } })(root);
+  const rowH=26, padT=20, padB=20, padR=140, plotW=320, x0=20;
+  const w = x0 + plotW + padR, h = padT + leaves.length*rowH + padB;
+  const maxH = Math.max(1e-9, root.height);
+  const yOf=new Map(); leaves.forEach((lf,i)=>yOf.set(lf, padT+i*rowH+rowH/2));
+  const xOf=(height)=> x0 + plotW - (height/maxH)*plotW; // root at left, leaves at right
+  let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" font-family="-apple-system,Segoe UI,Roboto,sans-serif">`;
+  s += `<rect width="${w}" height="${h}" fill="${cv('--bg')}"/>`;
+  function draw(n){
+    if(!n.left){ const y=yOf.get(n); s+=`<text x="${x0+plotW+8}" y="${y+4}" fill="${cv('--text')}" font-size="11">${esc(n.name)}</text>`; return {x:x0+plotW, y}; }
+    const a=draw(n.left), b=draw(n.right);
+    const x=xOf(n.height), y=(a.y+b.y)/2;
+    const col=cv('--accent');
+    s+=`<path d="M ${a.x} ${a.y} H ${x} V ${b.y} H ${b.x}" fill="none" stroke="${col}" stroke-width="1.6"/>`;
+    yOf.set(n,y);
+    return {x, y};
+  }
+  draw(root);
+  s += `<text x="${x0}" y="${h-4}" fill="${cv('--muted')}" font-size="9">distance →</text></svg>`;
+  return { svg:s, w, h };
+}
+
+/* ================= SINGLE MODE ================= */
+$("example").onclick = async ()=>{ $("input").value = await (await fetch("/example")).text(); };
+$("file").onchange = (e)=>{ const f=e.target.files[0]; if(!f) return;
+  const rd=new FileReader(); rd.onload=()=>{$("input").value=rd.result;}; rd.readAsText(f); };
+
+let lastSingle = null;
+$("run").onclick = async ()=>{
+  const text=$("input").value.trim();
+  if(!text){ $("output").innerHTML='<p class="err">Please paste or upload a profile first.</p>'; return; }
+  const topK=parseInt($("topk").value,10)||5;
+  $("run").disabled=true;
+  $("output").innerHTML='<p class="placeholder"><span class="spin"></span> Running model…</p>';
+  try {
+    const r=await fetch("/api/describe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text,top_k:topK})});
+    const data=await r.json();
+    if(!r.ok||data.error){ $("output").innerHTML='<p class="err">'+esc(data.error||"Request failed")+'</p>'; return; }
+    lastSingle=data; renderSingle(data);
+  } catch(err){ $("output").innerHTML='<p class="err">'+esc(err.message)+'</p>'; }
+  finally { $("run").disabled=false; }
+};
+
+function renderSingle(data){
+  const s=data.portrait_summary||{}, comps=data.portrait_components||[];
+  const pct=(s.matched_gene_fraction||0)*100;
+  let html='<div class="portrait">'+esc(data.portrait_text||"")+'</div>';
+
+  // gauges
+  html+='<div class="gauges">'
+    +'<div class="gauge"><div class="glabel">Tumor probability</div>'+probGauge(s.tumor_probability||0)+'</div>'
+    +'<div class="gauge"><div class="glabel">Age-like</div>'+ageGauge(s.age_like_years||0)+'</div>'
+    +'</div>';
+
+  html+='<div class="cards">'+card("Disease family",s.disease_family)+card("Organ family",s.organ_family)+'</div>';
+
+  const maxW=comps.reduce((m,c)=>Math.max(m,c.weight||0),0)||1;
+  html+='<div class="chart"><h2>Top prototype weights</h2>';
+  for(const c of comps){
+    const w=c.weight||0, width=(w/maxW*100).toFixed(1);
+    html+='<div class="barrow"><div class="barlabel">'+esc(c.disease_family||"unknown")
+      +'<small>'+esc((c.organ_family||"")+(c.anatomical_site?" · "+c.anatomical_site:""))+'</small></div>'
+      +'<div class="bartrack"><div class="barfill" style="width:'+width+'%"></div></div>'
+      +'<div class="barval">'+w.toFixed(3)+'</div></div>';
+  }
+  html+='</div>';
+
+  html+='<button class="secondary exportbtn" id="exp1">⬇ Prototypes (CSV)</button> '
+    +'<button class="secondary exportbtn" id="png1">⬇ Chart (PNG)</button>';
+
+  const matched=s.matched_genes!=null?s.matched_genes:"?";
+  html+='<p class="note '+(pct<5?"warn":"")+'">Gene coverage: '+matched+' genes matched ('+pct.toFixed(2)+'%).'
+    +(pct<5?' ⚠ Very low coverage — fine for the tiny example file, but a real prediction needs a full profile.':'')+'</p>';
+
+  $("output").innerHTML=html;
+  $("exp1").onclick=()=>{
+    const rows=[["rank","prototype_id","weight","disease_family","organ_family","anatomical_site","tumor_status","disease_label","prototype_text"]];
+    for(const c of comps) rows.push([c.rank,c.prototype_id,c.weight,c.disease_family,c.organ_family,c.anatomical_site,c.tumor_status,c.disease_label,c.prototype_text]);
+    downloadCSV("rna_portrait_prototypes.csv",rows);
+  };
+  $("png1").onclick=()=>{ const g=singleSVG(s,comps); svgToPng(g.svg,"rna_portrait_single.png",g.w,g.h); };
+}
+
+/* build a self-contained SVG snapshot of the single-profile result */
+function singleSVG(s, comps){
+  const W=520, padT=20, rowH=30, chartTop=170, h=chartTop+comps.length*rowH+30;
+  const maxW=comps.reduce((m,c)=>Math.max(m,c.weight||0),0)||1;
+  const tp=s.tumor_probability||0, age=s.age_like_years||0;
+  let g=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${h}" width="${W}" height="${h}" font-family="-apple-system,Segoe UI,Roboto,sans-serif">`;
+  g+=`<rect width="${W}" height="${h}" fill="${cv('--bg')}"/>`;
+  g+=`<text x="20" y="28" fill="${cv('--text')}" font-size="15" font-weight="700">${esc(s.disease_family||'unknown')} · ${esc(s.organ_family||'')}</text>`;
+  // gauges as text+bars
+  g+=`<text x="20" y="58" fill="${cv('--muted')}" font-size="11">TUMOR PROBABILITY</text>`;
+  g+=`<text x="20" y="84" fill="${tp>=0.5?cv('--danger'):cv('--accent-2')}" font-size="24" font-weight="700">${(tp*100).toFixed(0)}%</text>`;
+  g+=`<text x="270" y="58" fill="${cv('--muted')}" font-size="11">AGE-LIKE</text>`;
+  g+=`<text x="270" y="84" fill="${cv('--text')}" font-size="24" font-weight="700">${age.toFixed(1)} yr</text>`;
+  g+=`<text x="20" y="${chartTop-14}" fill="${cv('--muted')}" font-size="11">TOP PROTOTYPE WEIGHTS</text>`;
+  comps.forEach((c,i)=>{
+    const y=chartTop+i*rowH, bw=(c.weight||0)/maxW*250;
+    g+=`<text x="20" y="${y+14}" fill="${cv('--text')}" font-size="11">${esc(c.disease_family||'unknown')}</text>`;
+    g+=`<rect x="220" y="${y+2}" width="250" height="16" rx="4" fill="${cv('--panel-2')}"/>`;
+    g+=`<rect x="220" y="${y+2}" width="${bw.toFixed(1)}" height="16" rx="4" fill="${cv('--accent')}"/>`;
+    g+=`<text x="478" y="${y+14}" fill="${cv('--muted')}" font-size="10" text-anchor="end">${(c.weight||0).toFixed(3)}</text>`;
+  });
+  g+=`</svg>`;
+  return {svg:g, w:W, h};
+}
+function card(k,v){ return '<div class="card"><div class="k">'+esc(k)+'</div><div class="v">'+esc(v!=null?v:"—")+'</div></div>'; }
+
+/* ================= BATCH MODE ================= */
+let batchFiles = []; // {name, text}
+$("bfiles").onchange = (e)=>{
+  const files=[...e.target.files];
+  let pending=files.length;
+  files.forEach(f=>{
+    const rd=new FileReader();
+    rd.onload=()=>{ batchFiles.push({name:f.name.replace(/\.[^.]+$/,""), text:rd.result}); if(--pending===0) renderFileList(); };
+    rd.readAsText(f);
+  });
+  e.target.value="";
+};
+function renderFileList(){
+  $("bfilelist").innerHTML = batchFiles.length
+    ? batchFiles.map((f,i)=>'<span>'+esc(f.name)+' ✕</span>').join("")
+    : "No files added yet — each file is one sample.";
+  [...$("bfilelist").querySelectorAll("span")].forEach((el,i)=>el.onclick=()=>{ batchFiles.splice(i,1); renderFileList(); });
+}
+$("bclear").onclick=()=>{ batchFiles=[]; $("bmatrix").value=""; renderFileList(); $("boutput").innerHTML='<p class="placeholder">Cleared.</p>'; };
+$("bexample").onclick = async ()=>{
+  // build a 3-sample matrix from the example file by perturbing values
+  const txt = await (await fetch("/example")).text();
+  const lines = txt.trim().split(/\r?\n/).filter(l=>l.trim());
+  const out=["gene\thigh\tmid\tlow"];
+  for(let i=0;i<lines.length;i++){
+    const parts=lines[i].split(/[\t,\s]+/);
+    if(i===0) continue;
+    const g=parts[0], v=parseFloat(parts[1]); if(isNaN(v)) continue;
+    out.push(`${g}\t${(v*1.4).toFixed(4)}\t${v.toFixed(4)}\t${(v*0.5).toFixed(4)}`);
+  }
+  $("bmatrix").value=out.join("\n");
+};
+
+let lastBatch=null;
+$("brun").onclick = async ()=>{
+  const matrix=$("bmatrix").value.trim();
+  if(batchFiles.length===0 && !matrix){ $("boutput").innerHTML='<p class="err">Add files or paste a matrix first.</p>'; return; }
+  const topK=parseInt($("btopk").value,10)||5;
+  $("brun").disabled=true;
+  $("boutput").innerHTML='<p class="placeholder"><span class="spin"></span> Running model on all samples…</p>';
+  try {
+    const r=await fetch("/api/describe_batch",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({samples:batchFiles, matrix, top_k:topK})});
+    const data=await r.json();
+    if(!r.ok||data.error){ $("boutput").innerHTML='<p class="err">'+esc(data.error||"Request failed")+'</p>'; return; }
+    lastBatch=data; renderBatch(data);
+  } catch(err){ $("boutput").innerHTML='<p class="err">'+esc(err.message)+'</p>'; }
+  finally { $("brun").disabled=false; }
+};
+
+function renderBatch(data){
+  const results=data.results||[], errors=data.errors||[];
+  if(results.length===0){ $("boutput").innerHTML='<p class="err">No samples produced a result.</p>'; return; }
+  let html='<table class="cmp"><thead><tr>'
+    +'<th>Sample</th><th>Disease family</th><th>Organ</th><th>Tumor p</th><th>Age-like</th><th>Top weight</th><th>Coverage</th>'
+    +'</tr></thead><tbody>';
+  for(const item of results){
+    const s=item.result.portrait_summary||{};
+    const tp=(s.tumor_probability||0);
+    const pct=(s.matched_gene_fraction||0)*100;
+    html+='<tr>'
+      +'<td><b>'+esc(item.name)+'</b></td>'
+      +'<td>'+esc(s.disease_family||"—")+'</td>'
+      +'<td>'+esc(s.organ_family||"—")+'</td>'
+      +'<td><span class="minibar"><div style="width:'+(tp*100).toFixed(0)+'%"></div></span> <span class="pill">'+(tp*100).toFixed(0)+'%</span></td>'
+      +'<td class="pill">'+(s.age_like_years!=null?s.age_like_years.toFixed(1):"—")+'</td>'
+      +'<td class="pill">'+(s.top_component_weight!=null?s.top_component_weight.toFixed(3):"—")+'</td>'
+      +'<td class="pill '+(pct<5?"warn":"")+'">'+pct.toFixed(1)+'%</td>'
+      +'</tr>';
+  }
+  html+='</tbody></table>';
+  if(errors.length) html+='<p class="note err">'+errors.length+' sample(s) failed: '+esc(errors.map(e=>e.name).join(", "))+'</p>';
+
+  // heatmap + dendrogram (need >=1 sample; dendrogram needs >=2)
+  const { families, rows:vecs } = buildVectors(results);
+  const hm = heatmapSVG(families, vecs);
+  html+='<div class="chart"><h2>Disease-family weight heatmap</h2><div id="hmwrap" style="overflow:auto">'+hm.svg+'</div></div>';
+  let dg=null;
+  if(results.length>=2){
+    dg = dendrogramSVG(cluster(vecs), vecs);
+    html+='<div class="chart"><h2>Sample clustering (average linkage)</h2><div id="dgwrap" style="overflow:auto">'+dg.svg+'</div></div>';
+  }
+
+  html+='<div class="exportbtn">'
+    +'<button class="secondary" id="exp2">⬇ Comparison (CSV)</button> '
+    +'<button class="secondary" id="png_hm">⬇ Heatmap (PNG)</button>'
+    +(dg?' <button class="secondary" id="png_dg">⬇ Dendrogram (PNG)</button>':'')
+    +'</div>';
+
+  $("boutput").innerHTML=html;
+  $("png_hm").onclick=()=>svgToPng(hm.svg,"rna_portrait_heatmap.png",hm.w,hm.h);
+  if(dg) $("png_dg").onclick=()=>svgToPng(dg.svg,"rna_portrait_dendrogram.png",dg.w,dg.h);
+  $("exp2").onclick=()=>{
+    const rows=[["sample","disease_family","organ_family","tumor_probability","age_like_years","top_component_weight","matched_genes","matched_gene_fraction"]];
+    for(const item of results){ const s=item.result.portrait_summary||{};
+      rows.push([item.name,s.disease_family,s.organ_family,s.tumor_probability,s.age_like_years,s.top_component_weight,s.matched_genes,s.matched_gene_fraction]); }
+    downloadCSV("rna_portrait_comparison.csv",rows);
+  };
+}
+</script>
+</body>
+</html>

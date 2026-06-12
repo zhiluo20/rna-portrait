@@ -1,0 +1,9 @@
+Pretrained model weights in the models/ directory are released for academic
+research and peer-review use.
+
+Suggested license for public deposition: Creative Commons Attribution-
+NonCommercial 4.0 International (CC BY-NC 4.0), unless all underlying data-use
+terms and institutional requirements permit a more permissive model-weight
+license.
+
+The source code is licensed separately under the MIT License.

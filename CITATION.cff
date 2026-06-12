@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+title: "RNA Portrait: code for RNA-language multimodal representation learning"
+message: "If you use this code or the pretrained model weights, please cite the associated manuscript and the archived repository DOI."
+type: software
+authors:
+  - name: "RNA Portrait authors"
+date-released: 2026-06-11
+version: "0.1.0"
+license: MIT
