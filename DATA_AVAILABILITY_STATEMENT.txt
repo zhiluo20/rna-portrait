@@ -8,22 +8,21 @@ available from their original repositories under the access terms of those
 repositories.
 
 The processed data required to reproduce the analyses are deposited at
-[DATA REPOSITORY NAME] under accession/DOI [DATA REPOSITORY DOI]. The deposited
-processed-data record should contain the prepared training matrix
+Zenodo under DOI 10.5281/zenodo.20695991. The deposited
+processed-data record contains the prepared training matrix
 (processed_data/training_matrix/expr_log.parquet, meta.csv, meta.parquet,
 genes.npy, sample_ids.npy and summary.json), the external validation profiles
 used by the manuscript workflows
 (processed_data/validation_profiles/external_180/ and
 processed_data/validation_profiles/multisource_450/), regenerated manuscript
 analysis tables (manuscript_analysis_tables/) and figure source data
-(source_data/). The repository record should also include the R deconvolution
-environment mirror or an equivalent environment lock
-(software_environment/r_libraries_deconvolution/ or equivalent lock files) used
-to reproduce EPIC and MCP-counter analyses.
+(source_data/). The repository record also includes the R package versions
+(R 4.5.2) used to reproduce the EPIC and MCP-counter analyses
+(software_environment/r_package_versions.csv and README_r_environment.md).
 
 The model and runtime artifacts required for complete manuscript reproduction
-are deposited with the same data record or a linked model-artifact record
-[MODEL/DATA REPOSITORY DOI]. These include the RNA-language alignment backbone
+are deposited within the same data record (Zenodo DOI 10.5281/zenodo.20695991).
+These include the RNA-language alignment backbone
 runtime files, portrait-attention runtime files, semantic state support scorer,
 age-like readout, external benchmark outputs, multisource benchmark outputs,
 the no-disease-card ablation summary and the semantic runtime configuration
@@ -35,14 +34,10 @@ additional runtime artifacts listed in the manifest.
 
 The text encoder used during training was
 sentence-transformers/all-MiniLM-L6-v2, accessed through the
-sentence-transformers package. For final deposition, record the exact upstream
-model revision or include a model-snapshot manifest in
-software_environment/third_party_models/ if offline bitwise reproducibility is
-required.
+sentence-transformers package. The candidate upstream model revisions observed
+during training are recorded in
+software_environment/third_party_models/sentence-transformers_all-MiniLM-L6-v2_revision.txt.
 
 No newly generated human sequencing data were produced in this study. Auxiliary
 working files, operating-system metadata files and Python cache files are not
 part of the data record and are not required for reproduction.
-
-Before publication, replace bracketed placeholders with the final repository
-name, accession number and DOI.
