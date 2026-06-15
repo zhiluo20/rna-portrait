@@ -8,7 +8,7 @@ dependencies:
   - pandas
   - pyarrow
   - scipy
-  - scikit-learn
+  - scikit-learn>=1.8
   - matplotlib
   - pytorch
   - pip
