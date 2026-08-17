@@ -21,3 +21,6 @@ dependencies = [
 
 [tool.setuptools]
 packages = ["rna_portrait"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
