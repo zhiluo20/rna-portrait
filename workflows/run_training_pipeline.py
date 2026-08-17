@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import subprocess
 import sys
@@ -19,8 +20,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Train RNA-language alignment and portrait-attention models.")
     parser.add_argument("--training-matrix", type=Path, required=True, help="Directory containing expr_log.parquet, meta.csv, genes.npy and sample_ids.npy.")
     parser.add_argument("--artifact-root", type=Path, default=REPO_ROOT / "artifacts")
-    parser.add_argument("--alignment-run-name", default="rna_language_alignment")
-    parser.add_argument("--portrait-run-name", default="portrait_attention")
+    parser.add_argument("--alignment-run-name", default="semantic_alignment_backbone")
+    parser.add_argument("--portrait-run-name", default="semantic_backbone_v8_topk64")
+    parser.add_argument("--semantic-fusion-alpha", type=float, default=0.4)
     parser.add_argument("--skip-age-readout", action="store_true")
     args = parser.parse_args()
 
@@ -40,6 +42,20 @@ def main() -> None:
     run("train_rna_language_alignment.py", env)
     print("[run] Portrait-attention model")
     run("train_portrait_attention.py", env)
+    runtime_root = args.artifact_root.resolve() / "bulk_multimodal_embedding"
+    runtime_root.mkdir(parents=True, exist_ok=True)
+    runtime_config = {
+        "name": "semantic_mainline_best_20260417",
+        "base_text_source": env["SPTA_TEXT_SOURCE"],
+        "attention_run": args.portrait_run_name,
+        "fusion_alpha": args.semantic_fusion_alpha,
+    }
+    runtime_config_path = runtime_root / "semantic_mainline_best_20260417.json"
+    runtime_config_path.write_text(
+        json.dumps(runtime_config, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    print(f"[write] Semantic runtime configuration: {runtime_config_path}")
     if not args.skip_age_readout:
         print("[run] Optional age-like readout")
         run("train_age_readout.py", env)

@@ -14,7 +14,8 @@ dependencies = [
     "scikit-learn>=1.8",
     "scipy>=1.10",
     "matplotlib>=3.7",
-    "sentence-transformers>=2.2",
+    "Pillow>=10",
+    "sentence-transformers>=3.0.1,<4",
     "tqdm>=4.66",
 ]
 

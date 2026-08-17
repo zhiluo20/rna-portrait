@@ -10,8 +10,9 @@ dependencies:
   - scipy
   - scikit-learn>=1.8
   - matplotlib
+  - pillow
   - pytorch
   - pip
   - pip:
-      - sentence-transformers
+      - sentence-transformers>=3.0.1,<4
       - tqdm
