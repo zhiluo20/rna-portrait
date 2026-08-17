@@ -3,8 +3,10 @@
 
 from __future__ import annotations
 
+import hashlib
 import html
 import subprocess
+import urllib.request
 from pathlib import Path
 from typing import Dict, List, Tuple
 
@@ -29,6 +31,17 @@ from runtime_paths import (
 EPIC_DIR = SUPP_DIR / "T4d_official_EPIC_deconvolution"
 OUTDIR = SUPP_DIR / "T4e_official_MCPcounter_deconvolution"
 R_SCRIPT = OUTDIR / "run_mcpcounter_deconvolution.R"
+MCP_COUNTER_REVISION = "b6eac73e91c246fcff0bb1a5c68a816cd588fc48"
+SIGNATURE_FILES = {
+    "mcpcounter_signatures_genes.txt": (
+        f"https://raw.githubusercontent.com/ebecht/MCPcounter/{MCP_COUNTER_REVISION}/Signatures/genes.txt",
+        "408f6c5d02c8f9bd2f1599c598367881853520934f8ce398a4886a8b296922bb",
+    ),
+    "mcpcounter_signatures_probesets.txt": (
+        f"https://raw.githubusercontent.com/ebecht/MCPcounter/{MCP_COUNTER_REVISION}/Signatures/probesets.txt",
+        "68778e6632fefac944127dba8d1ae1e8b8889ba36c71500776f8a7f00098c573",
+    ),
+}
 
 POOLS = ["External-180", "MultiSource-450"]
 POOL_SLUGS = {
@@ -91,9 +104,26 @@ DISPLAY_LABELS = {
 }
 
 
+def ensure_signature_file(path: Path, url: str, expected_sha256: str) -> None:
+    if path.exists():
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        if digest == expected_sha256:
+            return
+    with urllib.request.urlopen(url, timeout=60) as response:
+        payload = response.read()
+    digest = hashlib.sha256(payload).hexdigest()
+    if digest != expected_sha256:
+        raise RuntimeError(
+            f"Checksum mismatch for {url}: expected {expected_sha256}, got {digest}"
+        )
+    path.write_bytes(payload)
+
+
 def write_r_script() -> None:
     genes_path = OUTDIR / "mcpcounter_signatures_genes.txt"
     probesets_path = OUTDIR / "mcpcounter_signatures_probesets.txt"
+    for filename, (url, sha256) in SIGNATURE_FILES.items():
+        ensure_signature_file(OUTDIR / filename, url, sha256)
     script = f"""
 lib <- normalizePath("{R_LIB}", mustWork=TRUE)
 .libPaths(c(lib, .libPaths()))
@@ -101,12 +131,8 @@ if (!requireNamespace("MCPcounter", quietly=TRUE)) {{
   stop("MCPcounter is not installed in project R library: ", lib)
 }}
 library(MCPcounter)
-genes_url <- "https://raw.githubusercontent.com/ebecht/MCPcounter/master/Signatures/genes.txt"
-probesets_url <- "https://raw.githubusercontent.com/ebecht/MCPcounter/master/Signatures/probesets.txt"
 genes_path <- "{genes_path}"
 probesets_path <- "{probesets_path}"
-if (!file.exists(genes_path)) download.file(genes_url, genes_path, mode="wb", quiet=FALSE)
-if (!file.exists(probesets_path)) download.file(probesets_url, probesets_path, mode="wb", quiet=FALSE)
 genes <- read.table(genes_path, sep="\\t", stringsAsFactors=FALSE, header=TRUE, colClasses="character", check.names=FALSE)
 probesets <- read.table(probesets_path, sep="\\t", stringsAsFactors=FALSE, colClasses="character")
 run_one <- function(pool_slug) {{
@@ -328,6 +354,7 @@ def write_summary(df: pd.DataFrame, by_state: pd.DataFrame) -> None:
         "## Environment",
         "",
         "- R package: `MCPcounter 1.2.0` from `ebecht/MCPcounter`, `Source` subdirectory",
+        f"- signature tables: upstream revision `{MCP_COUNTER_REVISION}`, verified by SHA-256",
         f"- local R library: `{R_LIB}`",
         "- input normalization: per-sample CPM from raw/count-like validation profiles",
         "- feature type: `HUGO_symbols`",

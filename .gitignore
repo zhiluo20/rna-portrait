@@ -7,5 +7,6 @@ outputs/
 artifacts/
 figure_outputs/
 envs/
+SUBMISSION_SYNC_AUDIT_*.md
 
 .claude/

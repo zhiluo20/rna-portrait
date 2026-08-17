@@ -9,7 +9,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 ANALYSIS_DIR = REPO_ROOT / "workflows" / "manuscript_analyses"
-FIGURE_SCRIPT = REPO_ROOT / "workflows" / "figures" / "make_main_figures_and_source_data.py"
+FIGURE_SCRIPT = REPO_ROOT / "workflows" / "figures" / "current_submission" / "make_submission_figures.py"
 
 
 ANALYSIS_STEPS = [
@@ -60,6 +60,12 @@ def main() -> None:
     parser.add_argument("--artifact-root", type=Path, default=REPO_ROOT / "artifacts", help="Directory containing or receiving trained model artifacts.")
     parser.add_argument("--analysis-output-root", type=Path, default=REPO_ROOT / "outputs" / "manuscript_analysis_tables")
     parser.add_argument("--figure-output-root", type=Path, default=REPO_ROOT / "outputs" / "figures")
+    parser.add_argument(
+        "--data-package-root",
+        type=Path,
+        default=None,
+        help="Released package root containing source_data/ and figure_panel_sources/ for the current 5+7 figure set.",
+    )
     parser.add_argument("--r-lib-root", type=Path, default=None, help="Optional R library root containing EPIC and MCP-counter dependencies.")
     parser.add_argument("--skip-r-deconvolution", action="store_true", help="Skip EPIC and MCP-counter analyses when R dependencies are unavailable.")
     parser.add_argument("--skip-figures", action="store_true", help="Run analyses only.")
@@ -93,11 +99,33 @@ def main() -> None:
         run_python(ANALYSIS_DIR / filename, env)
 
     if not args.skip_figures:
-        if args.skip_r_deconvolution:
-            print("[skip] Main figure source-data and figure generation (requires EPIC/MCP-counter outputs)", flush=True)
-        else:
-            print("[run] Main figure source-data and figure generation", flush=True)
-            run_python(FIGURE_SCRIPT, env)
+        package_root = args.data_package_root.resolve() if args.data_package_root is not None else None
+        if package_root is None and args.data_root is not None:
+            candidates = [args.data_root.resolve(), args.data_root.resolve().parent]
+            package_root = next(
+                (candidate for candidate in candidates
+                 if (candidate / "source_data").is_dir() and (candidate / "figure_panel_sources").is_dir()),
+                None,
+            )
+        if package_root is None:
+            raise SystemExit(
+                "Current figure reconstruction requires --data-package-root pointing to the released "
+                "package that contains source_data/ and figure_panel_sources/."
+            )
+        print("[run] Current submission figure generation (5 main + 7 Extended Data)", flush=True)
+        subprocess.run(
+            [
+                sys.executable,
+                str(FIGURE_SCRIPT),
+                "--data-package",
+                str(package_root),
+                "--output-dir",
+                str(args.figure_output_root.resolve()),
+            ],
+            check=True,
+            cwd=str(REPO_ROOT),
+            env=env,
+        )
 
 
 if __name__ == "__main__":

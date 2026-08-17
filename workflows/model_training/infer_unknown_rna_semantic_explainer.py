@@ -95,6 +95,8 @@ def _weighted_knn_regression(values: np.ndarray, scores: np.ndarray) -> tuple[fl
 
 @lru_cache(maxsize=1)
 def _load_state_evidence_priors() -> dict[str, dict[str, dict[str, float]]]:
+    if os.getenv("SEMANTIC_DISABLE_EVIDENCE_PRIORS", "0") == "1":
+        return {"family_priors": {}, "subprofile_priors": {}}
     if not EVIDENCE_PRIORS_PATH.exists():
         return {"family_priors": {}, "subprofile_priors": {}}
     try:

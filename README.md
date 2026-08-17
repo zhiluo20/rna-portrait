@@ -1,12 +1,15 @@
 # RNA Portrait Code Availability
 
 This repository contains the code and pretrained model files used for the manuscript
-**Gene expression profiles can be described in natural language like images**.
+**Can genes be described in natural language like images?**
 
 The repository is organized for code availability. Processed data, validation
-profiles, full manuscript runtime artifacts and figure source data required for
-complete reproduction should be deposited separately under the manuscript Data
-Availability statement.
+profiles, full runtime artifacts and figure source data are deposited in a
+private Zenodo record with reserved DOI
+[10.5281/zenodo.20695991](https://doi.org/10.5281/zenodo.20695991). Controlled
+access is provided during peer review, with public release planned on
+publication. Verify the deposited contents against
+`data_availability/reproduction_asset_manifest.csv`.
 
 ## Repository contents
 
@@ -15,21 +18,23 @@ Availability statement.
 - `models/`: pretrained RNA-language alignment and portrait-attention weights used
   for inference.
 - `workflows/model_training/`: training code for the RNA-language alignment backbone,
-  portrait-attention module and optional age-like readout.
+  portrait-attention module, semantic runtime support artifacts and optional
+  age-like readout.
+- `workflows/preprocessing/`: deterministic GEO matrix harmonization, GDC
+  STAR-count processing and GEO/TCGA training-matrix assembly.
 - `workflows/manuscript_analyses/`: manuscript analysis scripts ordered by the
   analysis sequence.
-- `workflows/figures/`: scripts that regenerate main-figure source data and figures
-  from manuscript analysis tables.
+- `workflows/figures/current_submission/`: Python/Matplotlib reconstruction of
+  the five main figures and seven Extended Data figures from released inputs.
 - `notebooks/External_Independent_Reproduction_Guide.ipynb`: step-by-step
-  notebook for external verification from the released code and separate data
-  package.
+  integrity check, figure map and 5+7 figure rebuild.
 - `data_availability/public_dataset_manifest.csv`: public dataset/source manifest
   derived from the training metadata.
 - `data_availability/reproduction_asset_manifest.csv`: exact processed-data,
   model-artifact, source-data and environment assets required for complete
   manuscript reproduction.
-- `DATA_AVAILABILITY_STATEMENT.txt`: Data Availability statement text with
-  placeholders for the final repository DOI/accession.
+- `CODE_AVAILABILITY_STATEMENT.txt` and
+  `DATA_AVAILABILITY_STATEMENT.txt`: manuscript-ready availability text.
 - `examples/example_gene_expression.tsv`: minimal two-column input example.
 
 ## Install
@@ -83,9 +88,24 @@ The pipeline trains:
 2. Portrait-attention model.
 3. Optional age-like readout.
 
+It also writes the semantic runtime configuration used by the explainer.
+Build the validation benchmarks, evidence-support scorer, evidence priors and
+no-disease-card ablation with:
+
+```bash
+python workflows/model_training/run_runtime_validation_pipeline.py \
+  --validation-root /path/to/released_data_package/processed_data/validation_profiles \
+  --artifact-root artifacts
+```
+
+To reconstruct the prepared matrix from public-source exports, follow
+`workflows/preprocessing/README.md`. The deposited prepared matrix is the
+Methods-level starting point for a model rerun; accession-specific GEO
+normalization choices remain documented with the deposited data.
+
 ## External reproduction notebook
 
-For independent verification, use:
+The external reproduction notebook is:
 
 ```text
 notebooks/External_Independent_Reproduction_Guide.ipynb
@@ -96,21 +116,20 @@ Place the data package next to this repository:
 ```text
 parent_directory/
   nature_code_availability_20260611/
-  nature_reproduction_data_package_20260611/
+  released_data_package/
 ```
 
-Then open the notebook and run cells in order. The notebook:
+Running the notebook:
 
-1. loads and previews the prepared bulk RNA training matrix;
-2. checks the public-data and reproduction-asset manifests;
-3. runs the full-data training workflow when `RUN_MODEL_TRAINING = True`;
-4. can rerun the manuscript analysis workflow when
-   `RUN_MANUSCRIPT_PIPELINE = True`;
-5. displays standard matplotlib result panels directly from CSV source data.
+1. verifies the source-data manifest;
+2. checks the prepared training matrix and released vector-panel sources;
+3. records the Fig. 1–5 and Extended Data Fig. 1–7 mapping;
+4. rebuilds and validates all 12 figures in SVG, PDF, PNG and RGB/LZW TIFF;
+5. performs quantitative spot checks and renders a visual inspection sheet.
 
 If your directory names differ, set the environment variables
 `RNA_PORTRAIT_CODE_REPO`, `RNA_PORTRAIT_DATA_PACKAGE` and
-`RNA_PORTRAIT_WORK_DIR`, or edit the first notebook cell.
+`RNA_PORTRAIT_NOTEBOOK_OUTPUT`, or edit the first notebook cell.
 
 ## Reproduce manuscript analyses
 
@@ -119,9 +138,10 @@ prepared data tables described in the Data Availability statement.
 
 ```bash
 python workflows/run_manuscript_pipeline.py \
-  --data-root /path/to/released_processed_data \
+  --data-root /path/to/released_data_package/processed_data \
+  --data-package-root /path/to/released_data_package \
   --artifact-root /path/to/model_artifacts \
-  --r-lib-root /path/to/released_r_libraries_deconvolution \
+  --r-lib-root /path/to/reconstructed_r_library \
   --analysis-output-root outputs/manuscript_analysis_tables \
   --figure-output-root outputs/figures
 ```
@@ -130,7 +150,8 @@ If R packages for EPIC or MCP-counter are unavailable, run:
 
 ```bash
 python workflows/run_manuscript_pipeline.py \
-  --data-root /path/to/released_processed_data \
+  --data-root /path/to/released_data_package/processed_data \
+  --data-package-root /path/to/released_data_package \
   --artifact-root /path/to/model_artifacts \
   --skip-r-deconvolution
 ```
@@ -153,32 +174,48 @@ The scripts in `workflows/manuscript_analyses/` follow the manuscript analysis s
 ## Data and artifact availability
 
 Complete manuscript reproduction requires assets that are intentionally not
-stored directly in this clean GitHub code archive. Deposit these assets in a
-data or model-artifact repository and keep the release paths consistent with
-`data_availability/reproduction_asset_manifest.csv`:
+stored directly in this clean GitHub code archive. The companion Zenodo record
+(reserved DOI `10.5281/zenodo.20695991`) contains the following paths, as
+recorded in `data_availability/reproduction_asset_manifest.csv`:
 
 - prepared training matrix: `processed_data/training_matrix/`
 - external validation profiles: `processed_data/validation_profiles/`
 - full manuscript runtime artifacts: `model_artifacts/bulk_multimodal_embedding/`
 - figure source data: `source_data/`
+- vector-panel sources used by the Extended Data reconstruction:
+  `figure_panel_sources/`
 - regenerated manuscript analysis tables: `manuscript_analysis_tables/`
-- R deconvolution environment or lock files:
-  `software_environment/r_libraries_deconvolution/`
+- R deconvolution version record and reconstruction notes:
+  `software_environment/r_package_versions.csv` and
+  `software_environment/README_r_environment.md`
 - third-party text-encoder revision record:
   `software_environment/third_party_models/`
 
+The deposited release archive is
+`rna_portrait_data_package_20260817.tar.gz`; its SHA-256 checksum is provided in
+`rna_portrait_data_package_20260817.tar.gz.sha256`.
+
 The compact `models/` directory in this code archive is sufficient for example
 inference. It is not, by itself, sufficient to reproduce every manuscript
-analysis.
+analysis. Exact figure reconstruction uses the matching Zenodo-version package
+together with `workflows/figures/current_submission/`.
+
+Validate a flat manuscript PDF folder with:
+
+```bash
+python workflows/figures/check_submission_figure_set.py /path/to/figure_pdfs
+```
+
+The checker requires the five manuscript main-figure names and seven
+Extended Data figure names, verifies one page per PDF when `pdfinfo` is
+available, and checks font embedding when `pdffonts` is available.
+
+For permanent citation, archive the reviewed GitHub release and add its software
+DOI to `CITATION.cff`. The reserved Zenodo DOI above identifies the data package
+and must not be presented as a software-release DOI.
 
 ## Licenses
 
 Source code is released under the MIT License. Model weights are governed by
 `MODEL_LICENSE`; users should ensure that reuse complies with the terms of the
 underlying public datasets and any institutional requirements.
-
-## Permanent archive
-
-For submission, create a GitHub release and archive that release on Zenodo or
-Code Ocean. Nature Portfolio guidance states that a GitHub URL alone is not a
-permanent identifier; the archived DOI should be cited in the manuscript.

@@ -40,6 +40,10 @@ ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = Path(os.getenv('BMM_DATASET_DIR', str(TRAINING_DATASET_DIR)))
 RUN_NAME = os.getenv('BMM_RUN_NAME', 'rna_language_alignment')
 TEXT_MODEL_NAME = os.getenv('BMM_TEXT_MODEL_NAME', 'sentence-transformers/all-MiniLM-L6-v2')
+TEXT_MODEL_REVISION = os.getenv(
+    'BMM_TEXT_MODEL_REVISION',
+    'c9745ed1d9f207416be6d2e6f8de32d1f16199bf',
+)
 OUTDIR = OUTPUT_ROOT / RUN_NAME
 SPLIT_MANIFEST = os.getenv('BMM_SPLIT_MANIFEST', '').strip()
 PLOTLY_CDN = 'https://cdn.plot.ly/plotly-2.35.2.min.js'
@@ -351,7 +355,11 @@ QUERY_LIBRARY = [
 
 
 def load_text_model() -> SentenceTransformer:
-    return SentenceTransformer(TEXT_MODEL_NAME, device='cpu')
+    return SentenceTransformer(
+        TEXT_MODEL_NAME,
+        revision=TEXT_MODEL_REVISION,
+        device='cpu',
+    )
 
 
 def encode_text_corpus(model: SentenceTransformer, texts: List[str], cache_path: Path) -> np.ndarray:
@@ -1170,6 +1178,7 @@ def main() -> None:
         'selected_genes': genes,
         'text_backend': 'sentence_transformer',
         'text_encoder_name': TEXT_MODEL_NAME,
+        'text_encoder_revision': TEXT_MODEL_REVISION,
         'expr_mean': expr_mean.tolist(),
         'expr_std': expr_std.tolist(),
         'age_mean': age_mean,
@@ -1182,6 +1191,7 @@ def main() -> None:
             'n_text_features': int(text_matrix.shape[1]),
             'text_backend': 'sentence_transformer',
             'text_encoder_name': TEXT_MODEL_NAME,
+            'text_encoder_revision': TEXT_MODEL_REVISION,
             'seed': SEED,
             'split_manifest': SPLIT_MANIFEST or None,
         }
@@ -1199,6 +1209,7 @@ def main() -> None:
         'n_text_features': int(text_matrix.shape[1]),
         'text_backend': 'sentence_transformer',
         'text_encoder_name': TEXT_MODEL_NAME,
+        'text_encoder_revision': TEXT_MODEL_REVISION,
         'embed_dim': EMBED_DIM,
         'seed': SEED,
         'best_epoch': int(best_epoch),

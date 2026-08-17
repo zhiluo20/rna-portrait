@@ -7,7 +7,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 CODE_ROOT = ROOT / "workflows"
 BME_CODE_DIR = Path(os.getenv("RNA_PORTRAIT_MODEL_TRAINING_CODE", str(CODE_ROOT / "model_training"))).resolve()
-PREPROCESS_CODE_DIR = Path(os.getenv("RNA_PORTRAIT_PREPROCESS_CODE", str(CODE_ROOT / "preprocess"))).resolve()
+PREPROCESS_CODE_DIR = Path(
+    os.getenv(
+        "RNA_PORTRAIT_PREPROCESS_CODE",
+        str(CODE_ROOT / "preprocessing"),
+    )
+).resolve()
 
 DATA_ROOT = Path(os.getenv("RNA_PORTRAIT_DATA_ROOT", os.getenv("SRP_DATA_ROOT", str(ROOT / "data")))).resolve()
 TRAINING_DATASET_DIR = Path(os.getenv("RNA_PORTRAIT_TRAINING_MATRIX", os.getenv("BMM_DATASET_DIR", str(DATA_ROOT / "training_matrix")))).resolve()
