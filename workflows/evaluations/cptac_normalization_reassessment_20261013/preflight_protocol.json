@@ -1,0 +1,22 @@
+{
+  "created_utc": "2026-10-13T14:16:51.065186+00:00",
+  "source_sha256": {
+    "cptac_normalization_reassessment_20261013_v1/PROTOCOL.json": "9aed3581cb1d63aa6017df212bb70556f7d4caa087ac975029579e5fd801fdc3",
+    "cptac_normalization_reassessment_20261013_v1/preparation.json": "e358d3a9fa1cde1db0acc983feaf83073487abc3124a32a0e9f044ab5a74cd45",
+    "cptac_normalization_reassessment_20261013_v1/prepared_inputs.npz": "84f17582f73cccaaa762c5a0ccfc2085b8a4d319d367769ed0c41f0085fdf4f4",
+    "cptac_normalization_reassessment_20261013_v1/inference_v1/execution_contract.json": "8d6ed73a78d8a6ed2ad2c32e687472771ec2a26865334c5728b5a52777d3ff30",
+    "cptac_normalization_reassessment_20261013_v1/inference_v1/rna_embeddings.npz": "d9a544c675982c40a975c0d8baad95a555379375ffe4e535924a15f992385660",
+    "repair_v1/paired_candidates/CPTAC_PanCancer/rna_predictions_v1/mismatch_assignments.csv": "726d400dde65de99d88b260c5d25055b2f6fe917ae42dfc2a6d24355ca8e3ffb",
+    "repair_v1/paired_candidates/CPTAC_PanCancer/rna_inputs_v1/mechanically_valid_candidates.csv": "605758d188acc760acb014cb24d5377503a60ec2a6a2588326124ce10e8c7c28",
+    "repair_v1/pilot_rankings_v1/text_embeddings.npz": "fbb3a3ba73fa4bab2c3283243cc1cc66eabb434b625a8e0eb1382e1d4f17c6a1",
+    "repair_v1/cptac_retrieval_metrics.py": "2a4e5b2ea4e2825692909f014996f6a538d5e4834453f690e74459eb94a955cd",
+    "repair_v1/tie_aware_retrieval.py": "d9f6864fbbbdde684b363c2cc3598a51ce7bc923fe9d18263828610f32e55324",
+    "cptac_reassessment_20261013_drivers_v1/verify_cptac_retrieval.py": "cf53f5eebd32ceaf506d800a206132d7097b45dd823437fadc1afdeb68d6a02e"
+  },
+  "driver_sha256": "f6ba8308ebb5db18f6b001e0d4a79b62776f140b5384ab422ce5ed39134591dd",
+  "vector_tolerance_abs": 1e-06,
+  "metric_tolerance_abs": 1e-12,
+  "scope": "Outcome-free reconstruction of saved compact RNA vectors; synthetic metric checks. No full-portrait rerun or actual retrieval performance evaluation.",
+  "new_training": false,
+  "protein_qrel_values_read": false
+}
