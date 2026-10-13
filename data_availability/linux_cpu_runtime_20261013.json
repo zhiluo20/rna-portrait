@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-13",
+  "platform": "Linux x86_64 glibc 2.39",
+  "python": "3.12.3",
+  "torch": "2.3.1+cpu",
+  "CPU_only_verified": true,
+  "CUDA_or_ROCm_packages_installed": false,
+  "installed_distributions_including_pip": 80,
+  "locked_wheels_excluding_bootstrap_pip": 79,
+  "bootstrap_pip": "24.0",
+  "code_tests_passed": 69,
+  "test_warnings": 2,
+  "historical_examples": 3,
+  "scalar_fields": {
+    "float": 137,
+    "int": 35,
+    "bool": 18,
+    "str": 376,
+    "null": 6
+  },
+  "historical_numeric_count_including_integers": 172,
+  "float_comparison_abs_tolerance": 1e-05,
+  "float_comparison_rel_tolerance": 1e-05,
+  "max_numeric_absolute_error": 4.9863804534311384e-06,
+  "exact_scalar_types_verified": true,
+  "accepted_with_predeclared_tolerance": true,
+  "bitwise_equal": false,
+  "comparison_numeric_fields_definition": "Only floating fields; integer fields are checked exactly and counted separately.",
+  "tolerance_changed_after_observation": false,
+  "source_runtime_contract_sha256": "7f0cef39f12e774a6a7b346a91490e7a3bdd84680a8ce402ba0814952b39e5eb",
+  "linux_lock_sha256": "3ba62f149e869bdff025f95cd5e349fdf2576abc0635946235b00896e952bd22",
+  "lineage_sha256": {
+    "install_plan.json": "53a877d5b1a710bbd23d6265555d0787a2cbe3112550cf4e2d8854fc3b904fd8",
+    "setup_status.json": "75143b7a18c300e4707f99c2b29f04fa497d2444f78441167af91e5310cc98c6",
+    "transport_status.json": "fcd5fdd99f61f18fb81f069a2a71f8ddf8a01e3da048dac742b3fd898c9a076b",
+    "validation_v1/PROTOCOL.json": "0f3fc43ab58b4dd1c23da4ecd7a4d7b78cb88b28030df851133942fc5fa66c74",
+    "validation_v1/comparison.json": "ea88bbe27bec7203da1e2a09f34f7d348a1c939360ce67245c329909aec3c3aa",
+    "validation_v1/tests.stdout.log": "0d996b4aa8d46fb040ce8c6388801dd05cfd1ce458ff0aeec51fd505a42ef3d1",
+    "validation_v1/full_inference.json": "f4f5abb8d09f4cabe82c4208ebfe6f347a77495f1afc54103c7bf9f1d4e20097"
+  },
+  "file_verification_counts": {
+    "key_files_verified": 22,
+    "sealed_run_files_verified": 465,
+    "runtime_files_verified": 323
+  },
+  "first_download_failed_due_to_DNS": true,
+  "network_settings_changed": false,
+  "transfer_recovery": {
+    "initial_verified_files": 77,
+    "missing_files_resent": 3,
+    "wheel_candidates_verified": 80,
+    "Mac_only_appnope_not_installed": true
+  },
+  "model_weights_or_manuscript_changed": false,
+  "training_started": false,
+  "new_independent_biological_validation": false,
+  "Cell_utility_gate_passed": false,
+  "complete_full_runtime_public_release": false,
+  "scope": "Specific cross-platform engineering compatibility checks, not biological efficacy or general bitwise reproducibility."
+}
