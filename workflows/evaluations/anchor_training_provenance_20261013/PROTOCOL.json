@@ -1,0 +1,39 @@
+{
+  "created_utc": "2026-10-13T14:53:30.270770+00:00",
+  "driver_sha256": "ba5e702e32a07c18259a936acf457f37eff095b9693111ed71eb4ff7aa3e76df",
+  "source_sha256": {
+    "output/bulk_multimodal_embedding/train_merged_tcga_geo_deseq2_omicverse_hvg4096_sbert_allminilm/bulk_multimodal_embedding.pt": "d88de4518075dc2d9ceb3b8eb5bc5831879cecbd69b97789c05f88fb8d40de48",
+    "output/bulk_multimodal_embedding/train_merged_tcga_geo_deseq2_omicverse_hvg4096_sbert_allminilm/sample_embeddings.csv": "f762d755bfd6f79e49c42a3029eb782d2283dd5a598fa38015a1c1d866d047ad",
+    "output/bulk_multimodal_embedding/train_merged_tcga_geo_deseq2_omicverse_hvg4096_sbert_allminilm/summary.json": "45609db1c3a42139a0a321379bba3ab928d9ea97078e5b90f2ce47cba2c6b9b2",
+    "output/bulk_multimodal_embedding/train_merged_tcga_geo_deseq2_omicverse_hvg4096_sbert_allminilm/training_history.csv": "98addf3b5525f31627008e69435e173bc5a7ea633f066c9901abc003986947ad",
+    "_code/bulk_multimodal_embedding/train_bulk_multimodal_embedding_sbert.py": "dc66abd53d4d5dec0937534941e9c39c51d796ccf24ce299bb3d2e71ad8790d1",
+    "Data/01_merged_training_dataset/meta.parquet": "bab6f4d32261a45a3e944dc27868f19774fa631e8c9756e5131ea5d7b706e50e",
+    "Data/01_merged_training_dataset/sample_ids.npy": "f6dd2dc6d9cdf8bcb9f2e9c4cefeb024afebd8f2355843cfc819a77de23e660d",
+    "Data/01_merged_training_dataset/genes.npy": "129aeb47fa31e174391f49b6bffe2d2cf64af29dfb07ed22441f761360ed9063",
+    "Data/01_merged_training_dataset/expr_log.parquet": "d6106ec506fef3ad0cbb280d12a8478fff9a08bd2ba966b40a663f50870ae90b"
+  },
+  "existing_local_sources_sha256": {
+    "repair_v1/dataflow_audit_v1/runtime_reference_split_manifest.json": "f6b9d4cd140eb6be402ca090dd14ba3ee8132c704f33ffd6fb5fb4b0f0424596",
+    "restored_runtime_20261009_v2/anchor_backbone_audit.json": "066aff56d1e960c7ad084529ed32d0ea8bf0ef7dd0b6bfd11e80bf4337e0349b",
+    "rna-portrait/workflows/model_training/train_rna_language_alignment.py": "407de57e7396ff8154dd84afe1e2f697591539a8fc4af3c8a80dd7934704419b",
+    "repair_v1/paired_candidates/CPTAC_PanCancer/original_development_case_crosswalk.csv": "32e43f62ef8cb73eff19ba52bcc9d5e7861d5aefd16abb52759491594a0d6bbc",
+    "repair_v1/paired_candidates/CPTAC_PanCancer/rna_inputs_v1/mechanically_valid_candidates.csv": "605758d188acc760acb014cb24d5377503a60ec2a6a2588326124ce10e8c7c28"
+  },
+  "scope": "Recover and cross-check the actual anchor-run sidecar. Not a new split, model fit, full-system exposure guarantee or biological validation.",
+  "checks": [
+    "Unique sidecar IDs and source-cohort grouping",
+    "All rows versus previously verified semantic/runtime split",
+    "Recompute float32 mean/std on archived train IDs in recorded order",
+    "Replay all archived age/tumor predictions using matching checkpoint and AST-identical frozen model class"
+  ],
+  "statistical_tolerance_abs": 1e-05,
+  "prediction_tolerances_abs": {
+    "pred_age_years": 0.001,
+    "tumor_probability": 1e-05
+  },
+  "tolerance_scope": "Numerical replay, not clinical prediction correctness. Record failures rather than widening tolerances.",
+  "source_files_mutated": false,
+  "protein_qrel_values_read": false,
+  "new_training": false,
+  "current_CPTAC_candidate_pool_or_live_job_changed": false
+}
