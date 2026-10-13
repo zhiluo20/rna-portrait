@@ -1,0 +1,13 @@
+{
+  "all_output_hashes_verified": true,
+  "old_outputs_unchanged": true,
+  "reference_size_factor_max_abs_error": 0.0,
+  "score_groups_reconstructed": 900,
+  "score_max_abs_error": 0.0,
+  "full_portrait_records_verified": 384,
+  "independent_metric_groups_checked": 243,
+  "independent_metric_max_abs_error": 3.3306690738754696e-16,
+  "both_RNA_branches_input_route_verified": true,
+  "no_self_mismatched_samples": true,
+  "scope": "Score reconstruction from persisted embeddings and arithmetic verification, not a second independent forward pass or biological validation"
+}
