@@ -1,0 +1,37 @@
+{
+  "completed_utc": "2026-10-13T13:49:47.357417+00:00",
+  "protocol_sha256": "9aed3581cb1d63aa6017df212bb70556f7d4caa087ac975029579e5fd801fdc3",
+  "prepared_inputs_sha256": "84f17582f73cccaaa762c5a0ccfc2085b8a4d319d367769ed0c41f0085fdf4f4",
+  "samples": 942,
+  "mapped_reference_genes": 23628,
+  "measured_selected_genes": 3502,
+  "all_raw_columns_match_old_QC_hashes": true,
+  "old_CPM_reconstruction_exact": true,
+  "summaries": {
+    "sf_reference": {
+      "fit_genes": 23628,
+      "positive_in_all_samples_genes": 13402,
+      "factor_min": 0.18435136095817606,
+      "factor_median": 1.0767511396147664,
+      "factor_max": 1.981185912945076,
+      "independent_factor_max_abs_error": 1.865174681370263e-14,
+      "mapped_log_min": 0.0,
+      "mapped_log_max": 15.452494487102149
+    },
+    "sf_full_measured": {
+      "fit_genes": 59808,
+      "positive_in_all_samples_genes": 14370,
+      "factor_min": 0.18395815067659393,
+      "factor_median": 1.0800503284248926,
+      "factor_max": 1.9953025177392882,
+      "independent_factor_max_abs_error": 1.9095836023552692e-14,
+      "mapped_log_min": 0.0,
+      "mapped_log_max": 15.457058864603075
+    }
+  },
+  "qrel_values_read": false,
+  "new_training": false,
+  "old_files_unchanged": true,
+  "full_internal_preparation_sha256": "e358d3a9fa1cde1db0acc983feaf83073487abc3124a32a0e9f044ab5a74cd45",
+  "stage": "Input preparation validated. This publication is not model-performance acceptance."
+}
