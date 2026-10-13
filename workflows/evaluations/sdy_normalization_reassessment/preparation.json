@@ -1,0 +1,52 @@
+{
+  "recorded_utc": "2026-10-13T06:51:29.481998+00:00",
+  "protocol_sha256": "dd9046d14b3e6b47e4c0181e60c3aaa2d3ddf04b5be267373251540c0c768e38",
+  "prepared_inputs_sha256": "9b0d69e1b2bfa93ae8bc11e560f653fcf597a98d4f31ebac604be36ae909a72b",
+  "driver_sha256": "02631ef3ec4ac6ade4360d667c6a1145dbac5239a2d8f353910243c62e13a541",
+  "source_sha256": {
+    "repair_v1/paired_candidates/SDY2823/pairing_v1/primary_baseline_candidate_pool.csv": "49f2ac95f0e063f911552b599f51c07eeef49a97670d146700796a9cf1aec3ab",
+    "repair_v1/paired_candidates/SDY2823/rna_primary/GSE279552_P462_genecounts.csv.gz": "742eab4edd545e6e72a5d8d367fca39234402bf7c062439a2011ef72df581130",
+    "repair_v1/paired_candidates/SDY2823/model_gene_mapping_v2.csv": "35cc6c883c11432003b98259daa8f2fd0ef59c29d8ef710df482b80433a808a2",
+    "repair_v1/paired_candidates/SDY2823/full_portrait_v1/RNA_only_mapped_counts.npz": "ff262fbd352a56d7261e4a781d9a20e8719bee6f17c32019d5d48bbdb994ed35",
+    "queries.json": "f9a471c4274cce8e32cbdd6d8e8d224c0226348eb906b201ec90e3dd65084374",
+    "preprocessing_recovery_20261013/github_patch/workflows/preprocessing/reconstruct_legacy_normalization.py": "b1a9d38c2e3ade61d685d7124c07b46974d835209f64da8225862464ead5a5b5"
+  },
+  "immutable_old_files_sha256": {
+    "repair_v1/paired_candidates/SDY2823/composition_pilot_v3/rankings.csv.gz": "854ef86cde693233fd14e847415c76dee006339e5904fa6d3d7c96cf6a9dd368",
+    "repair_v1/paired_candidates/SDY2823/composition_pilot_v3/per_query_paraphrase_results.csv": "f6257bb4e421ed2da84054459f66b1f1b6d7a35cab8edccd2d377822454675fd",
+    "repair_v1/paired_candidates/SDY2823/composition_pilot_v3/evaluation_summary.json": "5d080f2fa23d8d08a193d0b20cdcc1e8e34dd95c08d8a731a8e7e799a8d43176",
+    "repair_v1/paired_candidates/SDY2823/full_portrait_v1/protocol.json": "292837967d5bca0ae27ddf515613120bb4fd5b0c5dfb5432d746bf7b3d7c3314",
+    "repair_v1/paired_candidates/SDY2823/full_portrait_v1/execution_contract.json": "b7e39dfab2eb78382debaad7fef861fcf12cf731856492a1ba3db84a99c77799",
+    "repair_v1/paired_candidates/SDY2823/full_portrait_v1/execution_summary.json": "145eac0db9f49c1f70485b67d5cc3ebf8c68c24f6dc8d63ff2eef02dc3f986f3",
+    "repair_v1/paired_candidates/SDY2823/full_portrait_v1/portrait_texts.csv": "3bcc4f957be24f78c843a2baa8b49f0203a6713d55316695c23cbca7d9e41ab1",
+    "repair_v1/paired_candidates/SDY2823/full_portrait_v1/rankings_all_30_queries.csv.gz": "fc88c8e0d6c62287f2fbdb7a1cd6c98738e90705935d2a6be5dbba0e4881c628"
+  },
+  "arms": [
+    {
+      "arm": "sf_reference",
+      "cohort_libraries": 96,
+      "normalization_input_genes": 23323,
+      "positive_reference_genes": 9585,
+      "factor_min": 0.5489480821072731,
+      "factor_median": 1.0412079953275497,
+      "factor_max": 1.7880817002711709
+    },
+    {
+      "arm": "sf_full_measured",
+      "cohort_libraries": 96,
+      "normalization_input_genes": 58302,
+      "positive_reference_genes": 9872,
+      "factor_min": 0.547827551659355,
+      "factor_median": 1.0426508686951839,
+      "factor_max": 1.784514824772997
+    }
+  ],
+  "mapped_gene_count": 23323,
+  "candidate_count": 96,
+  "previous_mapped_counts_exactly_preserved": true,
+  "independent_labels_read": false,
+  "new_model_inference_started": false,
+  "training_started": false,
+  "normalization_fit_is_transductive": true,
+  "scope": "Input preparation only. The full-measured Ensembl arm is a sensitivity analysis, not an assertion of exact historical GEO preprocessing."
+}

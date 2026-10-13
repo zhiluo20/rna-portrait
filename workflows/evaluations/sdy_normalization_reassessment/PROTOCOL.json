@@ -1,0 +1,53 @@
+{
+  "protocol_id": "SDY2823-cohort-size-factors-v1-20261013",
+  "date_local": "2026-10-13",
+  "timezone": "Asia/Taipei",
+  "stage": "Exploratory frozen-model reassessment after historical normalization recovery; prior CPM outcomes were already observed",
+  "candidate_pool": "The unchanged 96-donor baseline pool from SDY2823 / GSE279552",
+  "candidate_pool_sha256": "49f2ac95f0e063f911552b599f51c07eeef49a97670d146700796a9cf1aec3ab",
+  "count_matrix_sha256": "742eab4edd545e6e72a5d8d367fca39234402bf7c062439a2011ef72df581130",
+  "query_file_sha256": "f9a471c4274cce8e32cbdd6d8e8d224c0226348eb906b201ec90e3dd65084374",
+  "qrels_sha256": "34590fc75cecbb58702804db171701921256af33319e846d789ef3bc44b4139d",
+  "normalizer_implementation_sha256": "b1a9d38c2e3ade61d685d7124c07b46974d835209f64da8225862464ead5a5b5",
+  "normalizer_git_commit": "f0383fd1e5b8dd8d80f01d492c6823daf4c649f8",
+  "primary_normalization": "sf_reference",
+  "sensitivity_normalization": "sf_full_measured",
+  "arms": {
+    "sf_reference": {
+      "universe": "All 23323 uniquely resolved measured genes in the frozen 30286-gene model-reference map, not only 4096 encoder features",
+      "rationale": "Change normalization formula while retaining the mapped gene universe used by the old reference-CPM condition. This also follows the GDC preparation order of reference-gene projection before factor estimation."
+    },
+    "sf_full_measured": {
+      "universe": "All 58302 unique measured Ensembl rows in the same 96 raw RNA libraries; map to the same 23323 model symbols only after factor estimation",
+      "rationale": "Declared gene-universe sensitivity because the recovered GEO normalization precedes final model-gene selection. This is not claimed to recover an identical historical GEO annotation or gene universe."
+    }
+  },
+  "normalization_formula": "For genes positive in every candidate sample, take each gene's cohort mean log count; sample factor = exp(median gene log-ratio). Model input = log1p(count / sample factor).",
+  "normalization_fit_population": "Exactly the locked 96 candidate libraries in both arms; no stimulated, longitudinal or excluded-donor libraries added",
+  "normalization_scope": "Unsupervised whole-candidate-cohort fitting, explicitly transductive; not a training-only reference or prospective single-sample normalization contract",
+  "mapping_and_missing_policy": "Unchanged model_gene_mapping_v2; uniquely resolved mappings only, no new identifier rescue or duplicate policy. Unresolved model features stay absent and retain the frozen model's zero-input convention; absence is not asserted to be biological zero.",
+  "precision": "Float64 normalization and persisted mapped log inputs; each frozen encoder retains its existing float32 projection and clipping",
+  "runtime_input_scale": "training_log, meaning already transformed values are passed through without a second log/CPM operation; this API label is not proof of distributional equivalence",
+  "anchor_contract": "Both RNA branches receive the same preprocessed mapped values; structured anchor must be called with pretransformed=True and its alternate-CPM selection disabled",
+  "model_conditions_per_arm": ["rna_direct", "rna_fused", "full_portrait_released_calibration", "full_portrait_no_calibration"],
+  "controls_primary_arm": {
+    "rna_value_shuffled_sf_reference": "Permute observed mapped log-expression gene values independently within each library, after the fixed cohort transform; direct RNA branch only",
+    "rna_mismatched_sf_reference": "Derange the assignment of primary direct RNA embeddings among candidate libraries; no self-pairings; not used as a model-robustness claim"
+  },
+  "seed": 20261013,
+  "text_fields": ["headline", "biological_summary", "what_to_trust", "caution", "recommended_reading", "confidence_posture"],
+  "text_construction": "Same six complete, unedited fields and prefixes as full_portrait_v1; no query-specific field selection",
+  "queries": "Score all unchanged 30 questions x 3 rewrites; evaluate only Q01, Q02, Q19 with the same measured T/B qrels",
+  "evaluation": {
+    "k": 10,
+    "primary": "deterministic nDCG@10, descending score then ascending library ID",
+    "mandatory_tie_sensitivity": "exact equal-score random-order expectation for nDCG@10, Precision@10, Recall@10 and strong-discovery fraction",
+    "additional": ["Precision@10", "Recall@10", "upper-quartile discovery at 10", "paraphrase top-10 stability", "unique portrait text count", "input coverage and clipping diagnostics", "all inference failures"],
+    "aggregation": "Mean rewrites within each question, then mean the three correlated questions; do not treat 9 rewrites as 9 independent biological experiments",
+    "old_results": "Retain all 17 methods/controls and exact prior v3 results; append 10 new named conditions without renaming or replacing prior CPM results"
+  },
+  "prohibited": ["Reading flow/qrel values during input preparation or model inference", "Outcome-driven normalization/threshold/prompt selection", "Refitting weights, calibration, priors or prototypes", "Dropping failed samples to improve metrics", "Calling this a confirmatory trial or statement-correctness validation"],
+  "remaining_gates": ["Prospective single-sample reference definition", "Original anchor training-split provenance", "Independent human ratings", "New held-out confirmatory queries/cohorts and practical utility"],
+  "old_files_immutable": true,
+  "new_training": false
+}
