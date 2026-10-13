@@ -1,0 +1,24 @@
+{
+  "completed_utc": "2026-10-13T11:23:36.295240+00:00",
+  "contract_sha256": "66d950598ad726cf2abd974f89f69a8af496830727a32188c292b25db10d9f89",
+  "control_families": 2,
+  "replicates_each": 31,
+  "candidate_samples": 96,
+  "new_control_vectors": 5952,
+  "normal_baseline_vectors": 96,
+  "query_variants_scored": 90,
+  "multiset_checks": 5952,
+  "API_parity_checks": 6,
+  "max_API_parity_error": 0.0,
+  "Mac_normal_max_abs_embedding_error": 7.450580596923828e-08,
+  "Mac_original_shuffle_max_abs_embedding_error": 8.940696716308594e-08,
+  "labels_read": false,
+  "training_started": false,
+  "failed_inferences": 0,
+  "elapsed_seconds": 4.460234657999536,
+  "output_sha256": {
+    "embeddings.npz": "ffb053652693a80611d7fc6f2d37ecf57966e2c30b735533bf18645d10ab5504",
+    "scores.npz": "3cc022099c594b929b1c82db6ed911a3898a21a65b9855e0a0464fb3d1e8b174",
+    "control_input_diagnostics.csv": "367625c44337156d3b7f26a663b53b64940fbca95d6d2d755c5b296710219a43"
+  }
+}

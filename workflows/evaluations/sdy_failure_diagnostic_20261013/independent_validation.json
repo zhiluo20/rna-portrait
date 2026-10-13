@@ -1,0 +1,18 @@
+{
+  "score_groups_reconstructed": 5670,
+  "max_score_error": 0.0,
+  "control_metric_groups_independently_checked": 567,
+  "max_metric_error": 2.220446049250313e-16,
+  "all_10000_sample_permutations_are_bijections": true,
+  "independent_null_draw_method_checks": 540,
+  "max_direct_null_error": 2.220446049250313e-16,
+  "geometry_eigenvalue_max_error": 3.552713678800501e-15,
+  "query_score_rank_correlation_max_error": 1.1102230246251565e-16,
+  "analytic_random_mean": 0.292824074074074,
+  "old_source_files_unchanged": true,
+  "preprocessing_upper_clip_max": 0.0,
+  "preprocessing_lower_clip_max": 0.0,
+  "control_upper_clip_max": 0.0002837684449489,
+  "control_lower_clip_max": 0.0,
+  "scope": "Arithmetic/data-lineage verification, not general model causality or independent confirmation"
+}

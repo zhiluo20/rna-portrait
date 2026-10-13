@@ -1,0 +1,30 @@
+{
+  "question": "How variable is the same-cohort retrieval metric across fixed gene-shuffle draws?",
+  "takeaway": "The previous single-draw result is high relative to the technical distribution; controls overlap the unmodified model and do not establish practical advantage.",
+  "family": "Distribution",
+  "variant": "Box plot with all technical replicate points; whiskers show full range, not confidence limits",
+  "surface": "Author-review research figure export and reproducible notebook companion; not an inline widget or HTML dashboard",
+  "rows": 62,
+  "biological_donors": 96,
+  "judged_correlated_questions": 3,
+  "replicates_each": 31,
+  "palette_policy": "hard two-root cap",
+  "palette": {
+    "replicate": "#3D79B6",
+    "prior_draw": "#C88635",
+    "ink": "#30343B",
+    "grid": "#DFE3E8"
+  },
+  "non_color": "Prior draw uses a diamond; benchmarks use different line styles and direct labels",
+  "range": [
+    0,
+    1
+  ],
+  "renderer": "Matplotlib",
+  "exports": [
+    "control_distribution.png",
+    "control_distribution.svg"
+  ],
+  "branding": "Author-owned third-party manuscript research; no platform branding",
+  "not_a_replacement_for_main_manuscript_figures": true
+}

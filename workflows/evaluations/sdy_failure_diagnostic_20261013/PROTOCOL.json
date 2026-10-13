@@ -1,0 +1,53 @@
+{
+  "protocol_id": "SDY2823-bounded-failure-diagnostic-v1-20261013",
+  "stage": "Post hoc exploratory diagnosis after the original CPM and recovered-normalization results were observed; not preregistration or confirmation",
+  "population": "The same 96 baseline donors; no new samples or labels",
+  "parent_run": "normalization_reassessment_20261013/ssd_rerun_v1",
+  "parent_input_sha256": "9b0d69e1b2bfa93ae8bc11e560f653fcf597a98d4f31ebac604be36ae909a72b",
+  "parent_protocol_sha256": "dd9046d14b3e6b47e4c0181e60c3aaa2d3ddf04b5be267373251540c0c768e38",
+  "query_sha256": "f9a471c4274cce8e32cbdd6d8e8d224c0226348eb906b201ec90e3dd65084374",
+  "qrels_sha256": "34590fc75cecbb58702804db171701921256af33319e846d789ef3bc44b4139d",
+  "normalization": "Unchanged sf_reference primary input; no new normalization fit or alternative selection",
+  "RNA_branch": "Frozen compact direct RNA encoder only for new control inference; no retraining, calibration changes or full-portrait rerun",
+  "control_families": {
+    "all_mapped": "Permute all 23323 observed mapped log-expression values independently within each sample before projection onto model genes. This exactly repeats the prior primary control recipe. It preserves the full mapped-value multiset but can change the selected-feature marginal distribution.",
+    "selected_measured": "Permute only the 3524 observed model-selected log-expression values within each sample. Preserve their multiset and keep all 572 missing-feature positions fixed at the frozen zero-input convention. This is a separately labeled added diagnostic, not a renamed original control."
+  },
+  "seed_start": 20261013,
+  "replicates_per_control_family": 31,
+  "seed_rule": "Consecutive integer seeds 20261013 through 20261043 using NumPy default_rng; each family resets its generator for each seed; iterate samples in the frozen input order. Equal seed numbers do not make different-length gene permutations biologically paired.",
+  "inference_label_access": "Do not read qrel/flow values before the new control embeddings and scores are saved",
+  "platform_parity": {
+    "Linux_API_reference_rows": [0, 95],
+    "optimized_vs_Linux_API_absolute_tolerance": 1e-7,
+    "Linux_vs_frozen_Mac_embedding_absolute_tolerance": 1e-5,
+    "rank_changes": "Report top-10 differences and metric changes explicitly. Compare new controls with the unmodified Linux direct-RNA baseline, never silently replace Mac rankings."
+  },
+  "query_scope": "Score all unchanged 30 questions x 3 rewrites; quantitative relevance evaluation remains limited to Q01, Q02, Q19",
+  "metrics": "Original deterministic nDCG@10 plus exact-tie expectation, Precision@10 and grade-2 discovery; average rewrites within question then average three correlated questions; retain every seed",
+  "sample_label_randomization": {
+    "methods": "All 27 unchanged methods/controls in the parent measured-three-query rankings",
+    "draws": 10000,
+    "seed": 2026101301,
+    "scheme": "One sample-index permutation per draw, shared across all three queries, all rewrites and methods; preserve each donor's joint relevance-grade vector",
+    "reference": "Compute the exact random-ranking mean analytically and verify Monte Carlo means within six simulation standard errors",
+    "interpretation": "Conditional descriptive random-assignment reference, not new biological replicates, confirmation, general-superiority P values or confidence intervals for independent cohorts"
+  },
+  "fixed_additional_checks": [
+    "Saved-Mac embedding pairwise cosine distribution, centered participation-ratio dimension and top-PC variance share for old/new direct/fused and control vectors",
+    "Raw-text versus projected-query paraphrase and question-centroid cosine geometry for all 30 questions; separately show the three judged questions",
+    "Per-query score range, score-grade Spearman correlations and T/B/combined-query score correlations for all 27 parent conditions",
+    "Unmodified CPM versus sf_reference measured-feature clipping and value shifts; missing-feature count remains fixed",
+    "Mapped-count sum, size factor, median/IQR normalized expression and zero fraction as descriptive correlates; no fitted explanatory model or causal claim"
+  ],
+  "reporting_rules": [
+    "Keep all original outcomes, technical failures, seeds and methods; no best-seed reporting",
+    "Mark constant-score correlations unavailable, not zero, and do not drop those methods",
+    "The two shuffle definitions answer different diagnostic questions; distribution-preserving does not remove effects of gene-specific standardization",
+    "Geometry and correlations alone cannot identify the cause or establish biological correctness",
+    "No new phenotype labels, model weights, thresholds, prompts, selected genes or source-label inputs",
+    "Do not expand confirmatory/wet-lab work or claim the Cell utility gate is passed from this diagnosis"
+  ],
+  "new_training": false,
+  "original_manuscript_and_results_immutable": true
+}
