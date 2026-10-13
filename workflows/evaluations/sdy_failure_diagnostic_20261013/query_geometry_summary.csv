@@ -1,0 +1,3 @@
+space,questions,within_paraphrase_mean,between_question_centroid_mean,descriptive_within_minus_between
+raw_text,30,0.6825016158793956,0.5353379959310905,0.14716361994830507
+projected_RNA_query,30,0.8216225852601915,0.6070300433013528,0.2145925419588387

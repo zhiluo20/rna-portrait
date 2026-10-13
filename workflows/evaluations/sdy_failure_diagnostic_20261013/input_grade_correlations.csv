@@ -1,0 +1,16 @@
+input_summary,query_id,spearman_to_grade
+mapped_count_sum,Q01,0.10475417614271107
+mapped_count_sum,Q02,-0.06524568887125924
+mapped_count_sum,Q19,0.07363124276213485
+size_factor,Q01,0.180344966261287
+size_factor,Q02,-0.01293689983051677
+size_factor,Q19,0.1283250122861996
+median_log_sf_reference,Q01,0.10046392783282694
+median_log_sf_reference,Q02,0.19550816028116008
+median_log_sf_reference,Q19,0.14507864609750432
+IQR_log_sf_reference,Q01,0.14717832967012442
+IQR_log_sf_reference,Q02,0.08389786294197005
+IQR_log_sf_reference,Q19,0.04028694823107511
+zero_fraction_mapped,Q01,0.09431219348561017
+zero_fraction_mapped,Q02,0.12056020538267867
+zero_fraction_mapped,Q19,0.09511141877171941

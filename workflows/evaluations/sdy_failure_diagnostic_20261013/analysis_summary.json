@@ -1,0 +1,90 @@
+{
+  "completed_utc": "2026-10-13T11:33:20.770324+00:00",
+  "analysis_contract_sha256": "d3fda9e1f0bc09225ed3b3b0b0d96e5a19fb2ee47374bc958f4e91b18dedf412",
+  "candidates": 96,
+  "judged_questions": [
+    "Q01",
+    "Q02",
+    "Q19"
+  ],
+  "control_families": 2,
+  "technical_replicates_per_family": 31,
+  "evaluated_control_metric_groups": 567,
+  "independent_ndcg_max_error": 2.220446049250313e-16,
+  "normal_Linux_ndcg": 0.32748556433627707,
+  "control_distributions": [
+    {
+      "family": "all_mapped",
+      "replicates": 31,
+      "mean": 0.27133673331720737,
+      "median": 0.23961886036952643,
+      "sd": 0.08718957192492392,
+      "min": 0.15974791402897529,
+      "max": 0.4391313320384318,
+      "p025": 0.16351556171075296,
+      "p975": 0.4255275488439086,
+      "original_seed_value": 0.4110796201396425,
+      "replicates_at_least_unmodified": 10,
+      "unmodified_Linux_ndcg": 0.32748556433627707,
+      "scope": "Technical seed distribution, not independent-cohort uncertainty or a hypothesis test"
+    },
+    {
+      "family": "selected_measured",
+      "replicates": 31,
+      "mean": 0.26486585881511376,
+      "median": 0.24433646260008077,
+      "sd": 0.09777703184778924,
+      "min": 0.11344117254141728,
+      "max": 0.45796825346802955,
+      "p025": 0.12046676350840206,
+      "p975": 0.4565071068705164,
+      "original_seed_value": 0.2120352493157097,
+      "replicates_at_least_unmodified": 9,
+      "unmodified_Linux_ndcg": 0.32748556433627707,
+      "scope": "Technical seed distribution, not independent-cohort uncertainty or a hypothesis test"
+    }
+  ],
+  "random_assignment_draws": 10000,
+  "analytic_random_ranking_mean": 0.292824074074074,
+  "Linux_Mac_top10_orders_all_equal": true,
+  "Linux_Mac_max_score_error": 2.980232238769531e-07,
+  "query_geometry": [
+    {
+      "space": "raw_text",
+      "questions": 30,
+      "within_paraphrase_mean": 0.6825016158793956,
+      "between_question_centroid_mean": 0.5353379959310905,
+      "descriptive_within_minus_between": 0.14716361994830507
+    },
+    {
+      "space": "projected_RNA_query",
+      "questions": 30,
+      "within_paraphrase_mean": 0.8216225852601915,
+      "between_question_centroid_mean": 0.6070300433013528,
+      "descriptive_within_minus_between": 0.2145925419588387
+    }
+  ],
+  "old_results_unchanged": true,
+  "training_started": false,
+  "biological_replicates_added": 0,
+  "general_superiority_P_values_reported": false,
+  "remaining_gate": "Does not establish practical advantage, human statement correctness or cross-cohort confirmation.",
+  "output_sha256": {
+    "control_metrics_all_variants.csv": "ea3dddd4ee8f39158fd34c6604a9f5ea933ec8c0392a4baef7d29ad062b13c29",
+    "control_per_question.csv": "b97a62bb2ab0c992f77c3a12c8c09ce5ed69e2ca452a54dd5ee42a6d460d8fe1",
+    "control_replicate_means.csv": "f1ee92915d32da01ce29f2080b23d2f2eb51e8d40860fc414c761903ccf7c04d",
+    "control_distributions.csv": "a6f82f571bdc3a9be2f6aaa10841397c3be86cab8d9e7d23b4557f6c4966a76b",
+    "sample_label_randomization_summary.csv": "4447cf36987b40feb0f6334eb85bd26618714c518825c70d558a4aeefbae58f0",
+    "Linux_Mac_ranking_parity.csv": "6c27136f80d60ce8ddcf06b349be12ccb86a17a6a530672c6e56f72960cfb41a",
+    "embedding_geometry.csv": "8f8a6bd2f74ae555c329ec6910a6908c9e9ba0e860427c5336350798e8791343",
+    "query_paraphrase_geometry.csv": "eb8e093ce3ec482daefcab455b29d99562700ba0b96e27e3fd4872c6a1fa7ab0",
+    "query_pair_geometry.csv": "559981e129e4b06c8d35219f1da9962954357a017f5fc787313055500145e7b2",
+    "query_geometry_summary.csv": "9bc212b8f25d1266aa3c570747f558ae2d2a997c582656f5d0c371b69e7d79fc",
+    "parent_score_diagnostics.csv": "047e619a3ccf5c3af0d6897f7548837a81436bf30c936a4d209fe086affe41ce",
+    "score_input_correlations.csv": "8e29c06976508e175f02d849720311941e553a36eb898c0d01d5029841df1782",
+    "input_grade_correlations.csv": "b5a1b154e382f83f9a891dc201b5ce38607b1f03c9f894a42abd7808a340c604",
+    "cross_query_score_correlations.csv": "b0c630a5831459631b92a21b71d070ba26c0de656dff9c80468bf1599fdff0c8",
+    "preprocessing_sample_diagnostics.csv": "4a90586837a14f2042847bcc4d05d1318e5463022654cd0dde15022ad2da8ffd",
+    "sample_label_randomization.npz": "13581c8d04eca80c6feb30bbb90a00373a77fdfb12aecc07dff29ff121820ae0"
+  }
+}
