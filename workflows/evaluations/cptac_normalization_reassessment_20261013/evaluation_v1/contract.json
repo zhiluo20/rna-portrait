@@ -1,0 +1,22 @@
+{
+  "created_utc": "2026-10-13T15:04:51.993259+00:00",
+  "source_sha256": {
+    "repair_v1/paired_candidates/CPTAC_PanCancer/rna_predictions_v1/rankings.csv.gz": "5d9c14db2f889c207222e52a5d6c244860de083c606632383a11c1e94fcd78d9",
+    "repair_v1/paired_candidates/CPTAC_PanCancer/cellwhisperer_v1/rankings.csv.gz": "fe53410bbdeeb83ad32b5c7fffc86af34b5188a131001c3f828f1dc7182317ba",
+    "repair_v1/paired_candidates/CPTAC_PanCancer/conventional_rankings_v1/rankings.csv.gz": "f744efa272ed9d2b84481e9255f5781599d6227e3e14a58c4742513d8dab8b56",
+    "repair_v1/paired_candidates/CPTAC_PanCancer/full_portrait_v1/rankings.csv.gz": "6de8d81cda3500bf5bb768dcaa28dd34853c22bbbd2f987738f9984c1f575bb1",
+    "cptac_normalization_reassessment_20261013_v1/inference_v1/rankings_all_30_queries.csv.gz": "0b8547082c239f5da4bd00b6a4cff32ea656720dc9579cb0a650414b7a8d7ebf",
+    "repair_v1/paired_candidates/CPTAC_PanCancer/protein_concordance_v2/qrels.csv": "c5f4471ef75336dcf40333427db00e015f5b1576048a3e52db0d40e64eeba76c",
+    "repair_v1/paired_candidates/CPTAC_PanCancer/protein_concordance_v2/protocol.json": "262b44c1700859cf5bc354937dd58696539bccd7b9f2cfbfff6debfcc2d174b2",
+    "repair_v1/paired_candidates/CPTAC_PanCancer/rna_inputs_v1/mechanically_valid_candidates.csv": "605758d188acc760acb014cb24d5377503a60ec2a6a2588326124ce10e8c7c28",
+    "cptac_normalization_reassessment_20261013_v1/PROTOCOL.json": "9aed3581cb1d63aa6017df212bb70556f7d4caa087ac975029579e5fd801fdc3",
+    "cptac_normalization_reassessment_20261013_v1/preparation.json": "e358d3a9fa1cde1db0acc983feaf83073487abc3124a32a0e9f044ab5a74cd45",
+    "cptac_normalization_reassessment_20261013_v1/inference_v1/execution_contract.json": "8d6ed73a78d8a6ed2ad2c32e687472771ec2a26865334c5728b5a52777d3ff30",
+    "cptac_normalization_reassessment_20261013_v1/inference_v1/execution_summary.json": "32dd19904da4f084ee60538e6229d031818fcb11dbac71660b3f5ce99056d3d9"
+  },
+  "driver_sha256": "7b809979bdd7091ad3e3545884687db3da1f9b506bd068c2ea556d9db9e154f4",
+  "metric_helper_sha256": "2a4e5b2ea4e2825692909f014996f6a538d5e4834453f690e74459eb94a955cd",
+  "scope": "Exploratory fixed-panel protein concordance. Complete-evidence conditional pools shared by all methods; report full-pool coverage, do not treat unjudged as negative.",
+  "strata": "Pooled all, pooled prior alignment-test, pooled no-recorded-case-match; and within each cancer cohort with cohort-specific protein references. Rankings are frozen and merely restricted, not refit to strata.",
+  "macro_average": "Average paraphrases within each query; then eligible cohort blocks within each query; then queries. Report evaluable query/block counts. No per-paraphrase p-values."
+}

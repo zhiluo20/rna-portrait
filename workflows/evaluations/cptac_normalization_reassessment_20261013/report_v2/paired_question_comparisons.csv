@@ -1,0 +1,5 @@
+model,comparator,queries,wins,ties,losses,mean_ndcg_difference,median_ndcg_difference
+full_portrait_released_calibration_sf_reference,full_portrait_text_released_calibration,30,18,0,12,0.04807702050049921,0.0217196831674984
+full_portrait_released_calibration_sf_reference,compact_marker_rank,30,3,0,27,-0.4370247170961056,-0.4766174854971032
+full_portrait_released_calibration_sf_reference,combined_conventional,30,3,0,27,-0.4134594040739489,-0.4081464780242473
+full_portrait_released_calibration_sf_reference,cellwhisperer_v1,30,13,0,17,-0.08946057806616571,-0.07206284900597196

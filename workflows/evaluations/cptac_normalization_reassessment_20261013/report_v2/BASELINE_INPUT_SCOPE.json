@@ -1,0 +1,7 @@
+{
+  "source_relative_to_study": "repair_v1/build_cptac_conventional_rankings.py",
+  "source_sha256": "ccda43d75531771d01b9cce2f5ce82d47258d6b66fb50bf01f48ad92f9f02541",
+  "structured_methods_use_predeclared_query_to_panel_map": true,
+  "structured_scores_repeated_across_paraphrases_by_design": true,
+  "interpretation": "Fixed-panel retrieval is a strong task reference, not evidence of open-ended free-text comprehension. Report query-interface differences; do not treat Jaccard 1 as a learned language advantage."
+}
