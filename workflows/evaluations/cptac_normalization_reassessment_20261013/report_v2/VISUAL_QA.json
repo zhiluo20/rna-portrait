@@ -1,0 +1,13 @@
+{
+  "recorded_utc": "2026-10-13T15:29:35.204454+00:00",
+  "visual_inspection": "passed",
+  "inspected_png_sha256": "be64c2a6542eb48b29b45ece42cf2d9e3e2e7f92de24b575f70b9bd18215f5e5",
+  "notebook_embeds_identical_png": true,
+  "notebook_code_cells_executed": 6,
+  "revision": "v1 legend overlapped the footnotes. v2 adds bottom space; all analysis summaries and chart-source values are unchanged. Both versions retained.",
+  "axes_zero_to_one": true,
+  "labels_and_legend_unclipped": true,
+  "all_32_conditions_retained_in_tables": true,
+  "clinical_or_statement_accuracy_claimed": false,
+  "Cell_utility_gate_passed": false
+}

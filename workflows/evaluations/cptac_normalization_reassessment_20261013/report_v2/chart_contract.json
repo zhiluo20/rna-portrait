@@ -1,0 +1,43 @@
+{
+  "created_utc": "2026-10-13T15:20:35.278476+00:00",
+  "question": "How did normalization change pooled CPTAC retrieval, and how does primary recovered-scale retrieval compare with fixed baselines?",
+  "takeaway": "Pooled scores improve, but primary recovered-scale representations remain below fixed strong baselines.",
+  "surface": "Exported author-research diagnostic figure embedded in an executed notebook; not a manuscript main figure or HTML dashboard.",
+  "family": "Comparison and ranking",
+  "variant": "Grouped horizontal bars and ranked horizontal bars",
+  "expected_rows": {
+    "normalization_panel": 9,
+    "baseline_panel": 8
+  },
+  "grain": "Equal-query macro over 30 questions, each averaged over three rewrites",
+  "denominator": "Per-query common measurable protein pools among 942 locked cases; 146 to 942 judged cases.",
+  "renderer": "Matplotlib static PNG and SVG",
+  "footprint_inches": [
+    13.4,
+    7.8
+  ],
+  "palette_policy": "single-root preferred",
+  "colors": {
+    "primary_blue": "#3979A8",
+    "blue_light": "#D4E3EF",
+    "ink": "#26323D",
+    "neutral": "#A4ABB2",
+    "grid": "#E6E9EC"
+  },
+  "non_color_distinction": "Legend, semantic row groups, direct numeric labels, open/hatched sensitivity bars",
+  "axes": "Both panels start at zero and end at one; no uncertainty interval implied.",
+  "omitted_conditions": "Both calibration modes are retained in CSV; their six-field texts are exactly identical within each arm. All 32 conditions and 13 contexts remain in source tables.",
+  "branding": "Third-party author manuscript research; no OpenAI blossom or branding.",
+  "source_sha256": {
+    "evaluation_v1/descriptive_macro_results.csv": "8198bbed0367761ec708c29034241abb55c28a34faeefca4e117664819650cdc",
+    "evaluation_v1/per_question_results.csv": "6cc0e1e9549d7184b3f893496f97352410dca0a94bd57e685547353ecb5473ca",
+    "evaluation_v1/paraphrase_stability.csv": "6a34375c0976304e82830e45d7633936aa07c698e4560aefeae0d15daaf10853",
+    "evaluation_v1/query_candidate_coverage.csv": "1a8fc6d06706425e0bf06d32e29ed7e7da0abde03f47c0ffb8ff2a09ea3b737d",
+    "evaluation_v1/independent_validation.json": "84eec53c142a031949ed1fc30334a4b0183ddcc54ebc65493cb5debbf87ed6bc",
+    "evaluation_v1/evaluation_summary.json": "6654439edcfbab6d1b011e10403f1fb5eadee735321293820c2a0f8bfb1fa6ea",
+    "PROTOCOL.json": "9aed3581cb1d63aa6017df212bb70556f7d4caa087ac975029579e5fd801fdc3",
+    "inference_v1/execution_summary.json": "32dd19904da4f084ee60538e6229d031818fcb11dbac71660b3f5ce99056d3d9",
+    "inference_v1/portrait_texts.csv": "c51bf502b52a711925bb7063c93d764601e39ef272465931f422866c57f3a0f9"
+  },
+  "visual_QA": "Must inspect exported PNG and verify notebook embeds the identical bytes."
+}

@@ -1,0 +1,59 @@
+{
+  "completed_utc": "2026-10-13T14:59:33.857429+00:00",
+  "execution_contract_sha256": "8d6ed73a78d8a6ed2ad2c32e687472771ec2a26865334c5728b5a52777d3ff30",
+  "integrity": {
+    "integrity_passed": true,
+    "code_files_checked": 28,
+    "model_assets_checked": 14,
+    "training_files_checked": 281,
+    "training_layout": "sharded",
+    "complete_shard_pairs": 139,
+    "scientific_validation": false,
+    "upstream_training_normalization": "unresolved"
+  },
+  "integrity_scope_note": "rc4 contains a historical unresolved-normalization label; see the separate 20261013 recovery audit for updated provenance.",
+  "candidate_cases": 942,
+  "successful_full_inferences": 3768,
+  "failed_inferences": 0,
+  "full_conditions": {
+    "full_portrait_released_calibration_sf_reference": 942,
+    "full_portrait_no_calibration_sf_reference": 942,
+    "full_portrait_released_calibration_sf_full_measured": 942,
+    "full_portrait_no_calibration_sf_full_measured": 942
+  },
+  "added_methods_and_controls": [
+    "rna_direct_sf_reference",
+    "rna_fused_sf_reference",
+    "rna_direct_sf_full_measured",
+    "rna_fused_sf_full_measured",
+    "rna_value_shuffled_sf_reference",
+    "rna_mask_10pct_sf_reference",
+    "rna_mask_30pct_sf_reference",
+    "rna_mask_50pct_sf_reference",
+    "rna_mismatched_global_sf_reference",
+    "rna_mismatched_within_cohort_sf_reference",
+    "full_portrait_no_calibration_sf_full_measured",
+    "full_portrait_no_calibration_sf_reference",
+    "full_portrait_released_calibration_sf_full_measured",
+    "full_portrait_released_calibration_sf_reference"
+  ],
+  "ranked_rows": 1186920,
+  "query_variants": 90,
+  "unique_portrait_texts": {
+    "full_portrait_no_calibration_sf_full_measured": 818,
+    "full_portrait_no_calibration_sf_reference": 821,
+    "full_portrait_released_calibration_sf_full_measured": 818,
+    "full_portrait_released_calibration_sf_reference": 821
+  },
+  "query_projection_max_abs_error": 2.2351741790771484e-07,
+  "text_query_encoding_max_abs_error": 2.1979212760925293e-07,
+  "execution_seconds_after_integrity_checks": 4182.746550566997,
+  "assay_label_values_read": false,
+  "old_outputs_unchanged": true,
+  "source_and_weights_unchanged": true,
+  "training_started": false,
+  "retrieval_accuracy_evaluated": false,
+  "full_internal_summary_sha256": "32dd19904da4f084ee60538e6229d031818fcb11dbac71660b3f5ce99056d3d9",
+  "private_output_file_count": 3774,
+  "public_copy_note": "Per-case output filename ledger omitted. Complete internal summary retained on SSD."
+}

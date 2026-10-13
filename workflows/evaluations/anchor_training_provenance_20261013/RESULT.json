@@ -1,0 +1,63 @@
+{
+  "completed_utc": "2026-10-13T14:53:39.582739+00:00",
+  "protocol_sha256": "1d23d1d1efb57731ac9c911d595d8b540f6cd8c88597a73229319b8060072bbd",
+  "source_checkpoint_sha256": "d88de4518075dc2d9ceb3b8eb5bc5831879cecbd69b97789c05f88fb8d40de48",
+  "sidecar_samples": 25199,
+  "source_cohorts": 117,
+  "archived_split_counts": {
+    "train": 13107,
+    "val": 8205,
+    "test": 3887
+  },
+  "missing_from_previous_runtime_split": 0,
+  "split_disagreements_vs_previous_runtime": 0,
+  "checkpoint_has_split_assignments": false,
+  "checkpoint_config_has_seed": false,
+  "standardization_checks": {
+    "expr_mean": {
+      "values": 4096,
+      "exact_values": 4096,
+      "max_abs_error": 0.0,
+      "within_1e_minus_5": true
+    },
+    "expr_std": {
+      "values": 4096,
+      "exact_values": 4096,
+      "max_abs_error": 0.0,
+      "within_1e_minus_5": true
+    },
+    "age_mean_abs_error": 0.0,
+    "age_std_abs_error": 0.0
+  },
+  "prediction_replay_checks": {
+    "pred_age": {
+      "records": 25199,
+      "max_abs_error": 1.142578125268301e-05,
+      "tolerance_abs": 0.001,
+      "within_tolerance_records": 25199,
+      "all_within_tolerance": true
+    },
+    "tumor_probability": {
+      "records": 25199,
+      "max_abs_error": 8.924942018762039e-08,
+      "tolerance_abs": 1e-05,
+      "within_tolerance_records": 25199,
+      "all_within_tolerance": true
+    }
+  },
+  "AST_identical_model_class": true,
+  "CPTAC_candidate_anchor_linkage_counts": {
+    "not_linked_by_existing_crosswalk": 499,
+    "test": 443
+  },
+  "original_source_files_unchanged": true,
+  "live_runtime_and_CPTAC_pool_unchanged": true,
+  "new_training": false,
+  "protein_qrel_values_read": false,
+  "remaining_limits": [
+    "Sidecar recovery does not make the checkpoint self-contained.",
+    "Does not establish original training membership for all later heads, priors or rule development.",
+    "Case crosswalk nonmatches do not establish absence of patient/project or other development exposure.",
+    "Numerical model-output replay is not biological accuracy or a new independent cohort."
+  ]
+}
