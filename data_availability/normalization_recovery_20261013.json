@@ -1,0 +1,67 @@
+{
+  "audit_date_local": "2026-10-13",
+  "timezone": "Asia/Taipei",
+  "base_code_commit": "4e40825c9155974653c2f64f6233d0ee691bf50a",
+  "scope": "Historical cohort-normalization reconstruction from retained count-level inputs; not a new training run or efficacy validation",
+  "GDC_inspected_backend_verification": {
+    "projects": 69,
+    "shards": 88,
+    "samples": 20356,
+    "genes": 30286,
+    "compared_values": 616501816,
+    "bitwise_value_differences": 0,
+    "max_abs_difference": 0.0,
+    "max_size_factor_error": 9.769962616701378e-15
+  },
+  "GEO_inspected_backend_verification": {
+    "projects": 48,
+    "samples": 4843,
+    "genes": 30286,
+    "raw_to_normalized_matching_projects": 48,
+    "raw_to_log_matching_projects": 48,
+    "prepared_to_deposited_values": 146675098,
+    "prepared_to_deposited_value_differences": 0,
+    "max_raw_to_log_abs_difference": 3.552713678800501e-15
+  },
+  "independent_implementation_verification": {
+    "cohorts": 117,
+    "samples": 25199,
+    "values": 763176914,
+    "GDC_different_float32_values": 0,
+    "GEO_different_float32_model_values": 0,
+    "GDC_max_abs_difference": 0.0,
+    "GEO_max_abs_difference": 1.9539925233402755e-14,
+    "implementation_sha256": "b1a9d38c2e3ade61d685d7124c07b46974d835209f64da8225862464ead5a5b5"
+  },
+  "source_file_sha256": {
+    "_code/normalize_tcga_deseq2style.py": "5a9809868d679a91f05ec272dcff92ea2a3c44554d6e6ceeb0eb2cda8d6aa405",
+    "_code/build_merged_training_dataset.py": "47e1c2adb7080a873f85e091c22fb71a015955c08ffda5b561fd81e85f824b50",
+    "_code/process_tcga_dataset.py": "e2869c7a7509f37f0ab353cc6f70f92eb9182949edbb1c6fade1a485b554e9dc",
+    "src/omicverse/omicverse/bulk/_Deseq2.py": "0555c166724ad55af3e711b937ca3026983843e7ca20601467a0fa4543edf918",
+    "src/omicverse/pyproject.toml": "50255330cb8761ab64c80add128db3f555459e6b9bf16761cae64caf2428bb1d"
+  },
+  "local_audit_record_sha256": {
+    "source_manifest.json": "62e1f3a65a53792f7bf14efdf28857f9f3805b7e829de89240e24ba4cb725112",
+    "geo_source_manifest.json": "bc584eb5135f59672a44ec96daaf2d8fa1b8846e49be397c6d920e2cbd2cc235",
+    "gdc_normalization_verification.json": "b3150db34c0cec59d40fc8383848c8a0d9592cfb6de25e80a8f1b0d89043a2f3",
+    "geo_normalization_verification.json": "9a86384c75abfde465a84ced0ee8c3e8dfc611238cb44af006a4493410e9bbb5",
+    "public_implementation_validation.json": "b9a8b86165a4d2751748ba70d705c953905c3ff0eac53fe4c3c73d56a6003ced"
+  },
+  "omicverse_source_snapshot_declared_version": "1.7.10rc1",
+  "historical_installed_version_verified": false,
+  "original_GEO_execution_driver_recovered": false,
+  "audit_runtime_versions": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "pyarrow": "14.0.1"
+  },
+  "no_training_or_checkpoint_change": true,
+  "individual_level_data_or_vendor_source_uploaded": false,
+  "remaining_limits": [
+    "Raw-source identifier mapping and sample selection",
+    "Exact historical installed environment",
+    "Training-only reference and prospective single-sample preprocessing",
+    "Original anchor-training split provenance",
+    "Independent human validation and confirmatory utility"
+  ]
+}
